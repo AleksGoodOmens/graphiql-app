@@ -38,6 +38,7 @@
 		"prettier": "^3.3.3",
 		"prettier-plugin-css-order": "^2.1.2",
 		"react-redux": "^9.1.2",
-		"typescript": "^5"
+		"typescript": "^5",
+		"yup": "^1.4.0"
 	}
 }
