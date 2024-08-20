@@ -7,13 +7,13 @@ const rootReducers = combineReducers({
 	countries: countriesSlice,
 });
 
-export const setupStore = () =>
-	configureStore({
+export const setupStore = () => {
+	return configureStore({
 		reducer: rootReducers,
 	});
-export type RootState = ReturnType<typeof rootReducers>;
+}
 export type AppStore = ReturnType<typeof setupStore>;
-export type AppState = ReturnType<AppStore['getState']>;
+export type RootState = ReturnType<AppStore['getState']>;
 export type AppDispatch = AppStore['dispatch'];
 
 export * from './hooks/hooks';
