@@ -13,7 +13,7 @@
 		"precommit": "lint-staged"
 	},
 	"lint-staged": {
-		"*.{js,jsx,ts,tsx,css,scss}": [
+		"*.{js,jsx,ts,tsx,css}": [
 			"eslint --fix",
 			"prettier -w",
 			"echo 'Lint-staged finished'"
