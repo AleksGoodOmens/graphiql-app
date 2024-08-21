@@ -7,7 +7,6 @@ import { useEffect } from 'react'
 
 export const Intro = () => {
 	const dispatch = useAppDispatch()
-	const a = (b) => b + 1
 
 	useEffect(() => {
 		dispatch(fetchCountries())
