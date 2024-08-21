@@ -1,8 +1,8 @@
 import { Intro } from '@/components'
-const r = 2
+const r = 1
 
 export default function Home() {
-	const a = (b) => b + 4
+	const a = (b) => b + 2
 
 	console.log(a)
 	return (
