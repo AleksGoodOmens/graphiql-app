@@ -1,8 +1,8 @@
 import { Intro } from '@/components'
-const r = 9
+const r = 10
 
 export default function Home() {
-	const a = (b) => b + 9
+	const a = (b) => b + 10
 	return (
 		<main>
 			<h1>home page</h1>
