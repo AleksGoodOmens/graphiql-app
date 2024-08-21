@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IForms, IValues } from '../interface';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IForms, IValues } from '../interface'
 
 const initialState: IForms = {
 	controlledForm: {
@@ -24,24 +24,24 @@ const initialState: IForms = {
 	},
 
 	showPassword: false,
-};
+}
 
 const formsSlice = createSlice({
 	name: 'form',
 	initialState,
 	reducers: {
 		setControlledValues(state, { payload }: PayloadAction<IValues>) {
-			state.controlledForm = payload;
+			state.controlledForm = payload
 		},
 		setUnControlledValues(state, { payload }: PayloadAction<IValues>) {
-			state.uncontrolledForm = payload;
+			state.uncontrolledForm = payload
 		},
 		setShowPassword(state) {
-			state.showPassword = !state.showPassword;
+			state.showPassword = !state.showPassword
 		},
 	},
-});
+})
 
 export const { setControlledValues, setUnControlledValues, setShowPassword } =
-	formsSlice.actions;
-export default formsSlice.reducer;
+	formsSlice.actions
+export default formsSlice.reducer

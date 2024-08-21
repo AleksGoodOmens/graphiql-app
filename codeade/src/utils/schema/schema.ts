@@ -1,6 +1,6 @@
-import * as yup from 'yup';
+import * as yup from 'yup'
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const MAX_FILE_SIZE = 5 * 1024 * 1024
 
 export const schema = (countries: string[]) => {
 	return yup.object({
@@ -38,23 +38,23 @@ export const schema = (countries: string[]) => {
 			.mixed()
 			.test('required', 'Please upload file', (fileList) => {
 				if (fileList && fileList instanceof FileList) {
-					return fileList.length > 0;
+					return fileList.length > 0
 				}
-				return false;
+				return false
 			})
 			.test('fileSize', 'The file is too large', (fileList) => {
 				if (fileList && fileList instanceof FileList && fileList.length > 0) {
-					return fileList[0].size <= MAX_FILE_SIZE;
+					return fileList[0].size <= MAX_FILE_SIZE
 				}
-				return false;
+				return false
 			})
 			.test('fileType', 'Unsupported File Format', (fileList) => {
 				if (fileList && fileList instanceof FileList && fileList.length > 0) {
 					return ['image/jpeg', 'image/png', 'image/jpg'].includes(
-						fileList[0].type,
-					);
+						fileList[0].type
+					)
 				}
-				return false;
+				return false
 			})
 			.required(),
 		country: yup
@@ -65,8 +65,8 @@ export const schema = (countries: string[]) => {
 			.boolean()
 			.oneOf(
 				[true],
-				'Please confirm that you agree with my terms and conditions',
+				'Please confirm that you agree with my terms and conditions'
 			)
 			.required(),
-	});
-};
+	})
+}

@@ -1,17 +1,18 @@
-'use client';
+'use client'
 
-import { countriesSelector, useAppDispatch, useAppSelector } from '@/lib';
-import { fetchCountries } from '@/lib/slices/countries.slice';
-import Image from 'next/image';
-import { useEffect } from 'react';
+import { countriesSelector, useAppDispatch, useAppSelector } from '@/lib'
+import { fetchCountries } from '@/lib/slices/countries.slice'
+import Image from 'next/image'
+import { useEffect } from 'react'
 
 export const Intro = () => {
-	const dispatch = useAppDispatch();
+	const dispatch = useAppDispatch()
+	const a = (b) => b + 2
 
 	useEffect(() => {
-		dispatch(fetchCountries());
-	}, [dispatch]);
-	const { countries } = useAppSelector(countriesSelector);
+		dispatch(fetchCountries())
+	}, [dispatch])
+	const { countries } = useAppSelector(countriesSelector)
 
 	return (
 		<ul>
@@ -27,5 +28,5 @@ export const Intro = () => {
 				</li>
 			))}
 		</ul>
-	);
-};
+	)
+}
