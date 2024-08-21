@@ -12,8 +12,7 @@
 		"prepare": "husky"
 	},
 	"lint-staged": {
-		"*.{ts,tsx,js,jsx, css}": [],
-		"*.{html, js, jsx, ts, tsx, css, scss}": [
+		"*.{html,js,jsx,ts,tsx,css,scss}": [
 			"eslint --fix",
 			"prettier -w",
 			"echo 'Lint-staged finished'"
