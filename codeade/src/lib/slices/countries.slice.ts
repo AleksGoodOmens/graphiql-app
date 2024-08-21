@@ -1,9 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-	ICountries,
-	ICountriesState,
-	ICountry,
-} from '../interface';
+import { ICountries, ICountriesState, ICountry } from '../interface';
 
 export const fetchCountries = createAsyncThunk('countries/fetch', async () => {
 	try {
