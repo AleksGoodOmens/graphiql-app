@@ -1,10 +1,10 @@
 # graphiql-app
 
-##CodeADE Team project
-###REST/GraphiQL Client
+## CodeADE Team project
+### REST/GraphiQL Client
  - We will be working on creating a light-weight versions of Postman and GrqphiQL combined in one app.
 
-###Tech stack
+### Tech stack
 - Next js
 - css
 - Typescript
@@ -13,7 +13,7 @@
 - prettier
 - husky
 
-###Application design requirements
+### Application design requirements
 - interactive elements
 - up to 3 fonts
 - color contrast
