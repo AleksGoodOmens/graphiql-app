@@ -1,10 +1,12 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Oxygen } from 'next/font/google'
 import './globals.css'
 import { ReactNode } from 'react'
 import { StoreProvider } from '@/providers'
+import Header from '@/components/Header/Header'
+import Footer from '@/components/Footer/Footer'
 
-const inter = Inter({ subsets: ['latin'] })
+const oxygen = Oxygen({ weight: '300', subsets: ['latin'] })
 
 export const metadata: Metadata = {
 	title: 'CodeADE',
@@ -19,7 +21,11 @@ export default function RootLayout({
 	return (
 		<StoreProvider>
 			<html lang='en'>
-				<body className={inter.className}>{children}</body>
+				<body className={oxygen.className}>
+					<Header />
+					{children}
+					<Footer />
+				</body>
 			</html>
 		</StoreProvider>
 	)
