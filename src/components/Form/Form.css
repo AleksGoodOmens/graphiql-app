@@ -9,20 +9,3 @@ form {
 	gap: 20px;
 	padding: 10px;
 }
-
-label[for='email'],
-label[for='password'],
-label[for='name'] {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-input[id='password'],
-input[id='email'],
-input[for='name'] {
-	border: none;
-	border-radius: 5px;
-	width: 200px;
-	height: 30px;
-}

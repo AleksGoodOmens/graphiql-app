@@ -9,6 +9,13 @@ a {
 	text-decoration: none;
 }
 
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100vh;
+}
+
 main {
 	display: flex;
 	flex-direction: column;
@@ -36,4 +43,33 @@ h2 {
 	display: flex;
 	justify-content: space-between;
 	gap: 10px;
+}
+
+.loader {
+	position: relative;
+	animation: l24 1s infinite linear;
+	margin: auto;
+	border: 8px solid #0000;
+	border-right-color: #807622;
+	border-radius: 50%;
+	aspect-ratio: 1;
+	width: 50px;
+}
+.loader:before,
+.loader:after {
+	position: absolute;
+	animation: inherit;
+	animation-duration: 2s;
+	inset: -8px;
+	border: inherit;
+	border-radius: 50%;
+	content: '';
+}
+.loader:after {
+	animation-duration: 4s;
+}
+@keyframes l24 {
+	100% {
+		transform: rotate(1turn);
+	}
 }

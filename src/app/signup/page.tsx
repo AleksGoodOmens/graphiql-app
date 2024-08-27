@@ -9,10 +9,14 @@ import { MyForm } from '@/utils/types'
 import { useRouter } from 'next/navigation'
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { auth } from '@/firebase/config'
+import { SyntheticEvent, useState } from 'react'
+import { Snackbar } from '@mui/material'
 
 export default function SingUp() {
 	const [createUserWithEmailAndPassword] =
 		useCreateUserWithEmailAndPassword(auth)
+	const [error, setError] = useState<string | null>(null)
+	const [open, setOpen] = useState(false)
 
 	const router = useRouter()
 	const {
@@ -26,11 +30,24 @@ export default function SingUp() {
 		const { email, password } = data
 
 		if (isValid) {
-			const result = await createUserWithEmailAndPassword(email, password)
-			if (result) {
-				router.push('/')
+			try {
+				const result = await createUserWithEmailAndPassword(email, password)
+				result
+					? router.push('/')
+					: (setError('Email already exists'), setOpen(true))
+			} catch (err) {
+				console.error(err)
 			}
 		}
+	}
+
+	const handleClose = (
+		event?: Event | SyntheticEvent<any, Event>,
+		reason?: string
+	) => {
+		reason === 'timeout'
+		setOpen(false)
+		setError(null)
 	}
 
 	return (
@@ -40,6 +57,15 @@ export default function SingUp() {
 				errors={errors}
 				handleSubmit={handleSubmit(submit)}
 			/>
+			{error && (
+				<Snackbar
+					anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+					open={open}
+					autoHideDuration={3000}
+					onClose={handleClose}
+					message={error}
+				/>
+			)}
 		</Home>
 	)
 }

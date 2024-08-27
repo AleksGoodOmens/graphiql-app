@@ -19,10 +19,13 @@ export default function SingIn() {
 
 	const submit: SubmitHandler<MyForm> = async (data) => {
 		const { email, password } = data
-
-		const result = await signInWithEmailAndPassword(email, password)
-		if (result) {
-			router.push('/')
+		try {
+			const result = await signInWithEmailAndPassword(email, password)
+			if (result) {
+				router.push('/')
+			}
+		} catch (err) {
+			console.error(err)
 		}
 	}
 

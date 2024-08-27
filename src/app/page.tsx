@@ -1,10 +1,12 @@
 'use client'
 
-import { Button } from '@/components'
 import { ReactNode } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../firebase/config'
 import Link from 'next/link'
+import Button from '@mui/material/Button'
+import AccountCircle from '@mui/icons-material/AccountCircle'
+import Login from '@mui/icons-material/Login'
 
 export default function Home({ children }: { children: ReactNode }) {
 	const [user] = useAuthState(auth)
@@ -24,13 +26,29 @@ export default function Home({ children }: { children: ReactNode }) {
 			) : (
 				<div className='main-buttons'>
 					<Button
+						variant='contained'
+						startIcon={<Login />}
 						href='/signin'
-						name='Sign In'
-					/>
+						style={{
+							backgroundColor: '#D25B01',
+							borderColor: '#D25B01',
+							color: '#FFFFE0',
+						}}
+					>
+						Sign In
+					</Button>
 					<Button
+						variant='contained'
+						startIcon={<AccountCircle />}
 						href='/signup'
-						name='Sign Up'
-					/>
+						style={{
+							backgroundColor: '#5B1C02',
+							borderColor: '#5B1C02',
+							color: '#FFFFE0',
+						}}
+					>
+						Sign Up
+					</Button>
 				</div>
 			)}
 			<div>{children}</div>

@@ -1,5 +1,15 @@
 .footer-wrapper {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	padding: 20px;
+}
+
+.footer-links {
+	display: flex;
+	gap: 10px;
+}
+
+.footer-links a:hover {
+	text-decoration: underline;
 }
