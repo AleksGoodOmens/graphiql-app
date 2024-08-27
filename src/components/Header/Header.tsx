@@ -6,9 +6,16 @@ import { auth } from '@/firebase/config'
 import { signOut } from 'firebase/auth'
 import { AccountCircle, Login, Logout } from '@mui/icons-material'
 import { Button, FormControlLabel, Switch } from '@mui/material'
+import { useState } from 'react'
 
 export default function Header() {
 	const [user] = useAuthState(auth)
+	const [checked, setChecked] = useState(true)
+
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setChecked(event.target.checked)
+	}
+
 	return (
 		<header>
 			<div className='header-wrapper'>
@@ -59,8 +66,29 @@ export default function Header() {
 						</div>
 					)}
 					<FormControlLabel
-						control={<Switch defaultChecked />}
-						label='English'
+						control={
+							<Switch
+								defaultChecked
+								checked={checked}
+								onChange={handleChange}
+								sx={{
+									'& .Mui-checked': {
+										'& .MuiSwitch-thumb': {
+											backgroundColor: '#807622',
+										},
+									},
+									'& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+										backgroundColor: '#807622',
+									},
+									'& .MuiSwitch-switchBase.Mui-checked': {
+										'&:hover': {
+											backgroundColor: '#c4be875a',
+										},
+									},
+								}}
+							/>
+						}
+						label={checked ? 'English' : 'Русский'}
 						sx={{
 							'& .MuiFormControlLabel-label': {
 								fontFamily: 'Oxygen, sans-serif',

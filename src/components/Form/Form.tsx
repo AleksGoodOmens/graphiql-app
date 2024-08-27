@@ -21,7 +21,7 @@ export function Form({ register, handleSubmit, errors }: FormProps) {
 				<Button
 					type='submit'
 					variant='contained'
-					style={{ backgroundColor: '#807622' }}
+					style={{ backgroundColor: '#EAA724' }}
 				>
 					Submit
 				</Button>
