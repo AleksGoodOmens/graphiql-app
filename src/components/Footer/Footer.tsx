@@ -35,6 +35,7 @@ export default function Footer() {
 					target='blank'
 				>
 					<Image
+						priority
 						width={100}
 						src={rsschoollogo}
 						alt='Logo'

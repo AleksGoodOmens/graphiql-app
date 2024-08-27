@@ -68,7 +68,6 @@ export default function Header() {
 					<FormControlLabel
 						control={
 							<Switch
-								defaultChecked
 								checked={checked}
 								onChange={handleChange}
 								sx={{

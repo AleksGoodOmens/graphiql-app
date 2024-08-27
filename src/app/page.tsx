@@ -1,15 +1,28 @@
 'use client'
 
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../firebase/config'
 import Link from 'next/link'
 import Button from '@mui/material/Button'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import Login from '@mui/icons-material/Login'
+import Loading from './loading'
 
 export default function Home({ children }: { children: ReactNode }) {
-	const [user] = useAuthState(auth)
+	const [user, loading] = useAuthState(auth)
+
+	const [isLoading, setIsLoading] = useState(true)
+
+	useEffect(() => {
+		if (!loading) {
+			setIsLoading(false)
+		}
+	}, [loading])
+
+	if (isLoading) {
+		return <Loading />
+	}
 
 	return (
 		<main>
