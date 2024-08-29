@@ -4,13 +4,11 @@ interface IParams {
 }
 
 export const paramsToString = (params: IParams[]) => {
-	const newStringParams = params.reduce((acc, p, i) => {
-		if (i === 0) {
-			acc = `?${p.key}=${p.value}`
-			return acc
-		}
-		acc += `&${p.key}=${p.value}`
-		return acc
-	}, '')
+	const newStringParams = params
+		.map(
+			(param) =>
+				`${encodeURIComponent(param.key)}=${encodeURIComponent(param.value)}`
+		)
+		.join('&')
 	return newStringParams
 }

@@ -53,14 +53,6 @@ export const RestParamsListForm = ({ pair, id }: IRestParamsListForm) => {
 			dispatch(delParam(id))
 			return
 		}
-
-		dispatch(
-			updateParam({
-				key: keyInput,
-				value: valueInput,
-				id: id,
-			})
-		)
 	}, [keyInput, id, valueInput, dispatch])
 
 	useEffect(() => {
@@ -75,13 +67,19 @@ export const RestParamsListForm = ({ pair, id }: IRestParamsListForm) => {
 			component={'form'}
 		>
 			<TextField
-				{...register('key')}
+				{...register('key', {
+					onBlur: () =>
+						dispatch(updateParam({ key: keyInput, value: valueInput, id: id })),
+				})}
 				variant='standard'
 			/>
 			<p>{errors.key?.message || ''}</p>
 
 			<TextField
-				{...register('value')}
+				{...register('value', {
+					onBlur: () =>
+						dispatch(updateParam({ key: keyInput, value: valueInput, id: id })),
+				})}
 				variant='standard'
 			/>
 			<p>{errors.value?.message || ''}</p>

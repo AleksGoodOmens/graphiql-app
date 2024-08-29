@@ -49,12 +49,11 @@ const restClientSlice = createSlice({
 					key: p[0],
 					value: p[1],
 				}))
-
 				state.baseUrl = `${url.protocol}//${url.host}${url.pathname}`
-
 				state.newParams = params
 
-				state.url = state.baseUrl + url.search
+				const paramsString = paramsToString(params)
+				state.url = state.baseUrl + (paramsString ? `?${paramsString}` : '')
 			} else {
 				state.url = payload
 			}
@@ -68,12 +67,15 @@ const restClientSlice = createSlice({
 			{ payload }: PayloadAction<INewParam>
 		) {
 			state.newParams.push(payload)
-			state.url = state.baseUrl + paramsToString(state.newParams)
+			const paramsString = paramsToString(state.newParams)
+			state.url = state.baseUrl + (paramsString ? `?${paramsString}` : '')
 		},
 		delParam(state, { payload }: PayloadAction<number>) {
 			const updatedParams = state.newParams.filter((_, i) => i !== payload)
 
-			state.url = state.baseUrl + paramsToString(updatedParams)
+			state.newParams = updatedParams
+			const paramsString = paramsToString(updatedParams)
+			state.url = state.baseUrl + (paramsString ? `?${paramsString}` : '')
 		},
 		updateParam(state, { payload }: PayloadAction<INewParam>) {
 			const updatedParams = state.newParams.map((p, i) => {
@@ -84,7 +86,9 @@ const restClientSlice = createSlice({
 				return p
 			})
 
-			state.url = state.baseUrl + paramsToString(updatedParams)
+			const paramsString = paramsToString(updatedParams)
+
+			state.url = state.baseUrl + (paramsString ? `?${paramsString}` : '')
 		},
 	},
 })
