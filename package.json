@@ -18,7 +18,7 @@
 			"prettier -w",
 			"echo 'Lint-staged finished'"
 		],
-		".{css}": [
+		".css": [
 			"prettier -w"
 		]
 	},
