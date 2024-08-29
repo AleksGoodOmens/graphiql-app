@@ -1,32 +1,39 @@
 'use client'
 
-import './Header.css'
+import styles from './Header.module.css'
+
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '@/firebase/config'
 import { signOut } from 'firebase/auth'
 import { AccountCircle, Login, Logout } from '@mui/icons-material'
 import { Button, FormControlLabel, Switch } from '@mui/material'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function Header() {
 	const [user] = useAuthState(auth)
 	const [checked, setChecked] = useState(true)
+	const router = useRouter()
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setChecked(event.target.checked)
 	}
 
+	const handleLogOut = () => {
+		signOut(auth)
+		router.push('/')
+	}
+
 	return (
 		<header>
-			<div className='header-wrapper'>
-				<div className='logo'>Logo</div>
-				<div className='header-buttons'>
+			<div className={styles['header-wrapper']}>
+				<div className={styles.logo}>Logo</div>
+				<div className={styles['header-buttons']}>
 					{user ? (
 						<Button
-							onClick={() => signOut(auth)}
+							onClick={handleLogOut}
 							variant='contained'
 							startIcon={<Logout />}
-							href='/'
 							style={{
 								backgroundColor: '#D25B01',
 								borderColor: '#D25B01',
@@ -36,11 +43,11 @@ export default function Header() {
 							Sign Out
 						</Button>
 					) : (
-						<div className='header-buttons__account'>
+						<div className={styles['header-buttons__account']}>
 							<Button
 								variant='contained'
 								startIcon={<Login />}
-								href='/signin'
+								onClick={() => router.push('/signin')}
 								style={{
 									backgroundColor: '#D25B01',
 									borderColor: '#D25B01',
@@ -53,7 +60,7 @@ export default function Header() {
 							<Button
 								variant='contained'
 								startIcon={<AccountCircle />}
-								href='/signup'
+								onClick={() => router.push('/signup')}
 								style={{
 									backgroundColor: '#5B1C02',
 									borderColor: '#5B1C02',

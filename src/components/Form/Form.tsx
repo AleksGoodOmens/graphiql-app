@@ -1,11 +1,15 @@
+import styles from './Form.module.css'
+
 import { Button, TextField } from '@mui/material'
-import './Form.css'
 import { FormProps } from './Form.type'
 
 export function Form({ register, handleSubmit, errors }: FormProps) {
 	return (
-		<form onSubmit={handleSubmit}>
-			<div className='form-wrapper'>
+		<form
+			onSubmit={handleSubmit}
+			className={styles.form}
+		>
+			<div className={styles['form-wrapper']}>
 				<TextField
 					id='email'
 					label='Email'

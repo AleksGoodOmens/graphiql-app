@@ -1,4 +1,5 @@
-import './Footer.css'
+import styles from './Footer.module.css'
+
 import Image from 'next/image'
 import rsschoollogo from '../../assets/rs_school_logo.svg'
 import Link from 'next/link'
@@ -6,8 +7,8 @@ import Link from 'next/link'
 export default function Footer() {
 	return (
 		<footer>
-			<div className='footer-wrapper'>
-				<div className='footer-links'>
+			<div className={styles['footer-wrapper']}>
+				<div className={styles['footer-links']}>
 					<Link
 						href='https://github.com/raenlin/'
 						target='blank'
