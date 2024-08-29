@@ -17,8 +17,9 @@ import ScheduleSendIcon from '@mui/icons-material/ScheduleSend'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { IFetchData } from '@/app/rest_client/actions'
+import { fetchData, IFetchData } from '@/app/rest_client/actions'
 import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export interface Inputs {
 	HTTPMethod: string
@@ -29,7 +30,8 @@ export interface IOnSubmitAction {
 	onSubmit: (d: IFetchData) => Promise<IRestClientResponse>
 }
 
-export const RestForm = ({ onSubmit }: IOnSubmitAction) => {
+export const RestForm = () => {
+	const router = useRouter()
 	const {
 		register,
 		handleSubmit,
@@ -48,6 +50,7 @@ export const RestForm = ({ onSubmit }: IOnSubmitAction) => {
 	const { url } = useAppSelector(restClientSelector)
 	const dispatch = useAppDispatch()
 	const RequestUrlValue = watch('RequestUrl')
+	const HTTPMethod = watch('HTTPMethod')
 
 	useEffect(() => {
 		dispatch(setUrl(RequestUrlValue))
@@ -56,6 +59,15 @@ export const RestForm = ({ onSubmit }: IOnSubmitAction) => {
 	useEffect(() => {
 		setValue('RequestUrl', url)
 	}, [url, dispatch, setValue])
+
+	const onSubmit = async () => {
+		const responseData = await fetchData({
+			HTTPMethod: HTTPMethod,
+			RequestUrl: RequestUrlValue,
+		})
+		const encodedData = encodeURIComponent(JSON.stringify(responseData))
+		router.push(`/rest_client/${HTTPMethod}?data=${encodedData}`)
+	}
 
 	return (
 		<Grid
