@@ -13,3 +13,9 @@ export type MyForm = {
 	email: string
 	password: string
 }
+
+export interface IKeyValue {
+	id?: number
+	key: string
+	value: string
+}

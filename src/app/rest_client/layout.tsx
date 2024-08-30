@@ -3,6 +3,7 @@ import { Box, Container, Typography } from '@mui/material'
 import type { Metadata } from 'next'
 import { ReactNode } from 'react'
 import ParamsSection from './paramsSection'
+import { Headers } from './Headers'
 
 export const metadata: Metadata = {
 	title: 'CodeADE - Rest client',
@@ -25,8 +26,9 @@ export default function RootLayout({
 				</Typography>
 				<RestForm />
 				<ParamsSection />
+				<Headers />
+				{children}
 			</Container>
-			{children}
 		</Box>
 	)
 }
