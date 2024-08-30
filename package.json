@@ -17,11 +17,15 @@
 			"eslint --fix .",
 			"prettier -w",
 			"echo 'Lint-staged finished'"
+		],
+		".css": [
+			"prettier -w"
 		]
 	},
 	"dependencies": {
-		"@emotion/react": "^11.13.0",
+		"@emotion/react": "^11.13.3",
 		"@emotion/styled": "^11.13.0",
+		"@hookform/resolvers": "^3.9.0",
 		"@mui/icons-material": "^5.16.7",
 		"@mui/material": "^5.16.7",
 		"firebase": "^10.13.0",
@@ -32,6 +36,7 @@
 	"devDependencies": {
 		"@hookform/resolvers": "^3.9.0",
 		"@reduxjs/toolkit": "^2.2.7",
+		"@types/firebase": "^3.2.1",
 		"@types/node": "^20",
 		"@types/react": "^18",
 		"@types/react-dom": "^18",
@@ -42,6 +47,7 @@
 		"eslint-config-next": "14.2.5",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-prettier": "^5.2.1",
+		"eslint-plugin-react-hooks": "^4.6.2",
 		"husky": "^9.1.5",
 		"lint-staged": "^15.2.9",
 		"prettier": "^3.3.3",
