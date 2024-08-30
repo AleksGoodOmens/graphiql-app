@@ -2,7 +2,7 @@
 import { Button, Grid, TextField } from '@mui/material'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { addParam, INewParam, useAppDispatch } from '@/lib'
+import { addParam, IKeyValue, IKeyValueID, useAppDispatch } from '@/lib'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { restParamsFormSchema } from '@/utils'
 
@@ -12,7 +12,7 @@ export const RestParamsForm = () => {
 		handleSubmit,
 		reset,
 		formState: { errors },
-	} = useForm<INewParam>({
+	} = useForm<IKeyValue>({
 		defaultValues: {
 			key: '',
 			value: '',
@@ -22,7 +22,7 @@ export const RestParamsForm = () => {
 
 	const dispatch = useAppDispatch()
 
-	const onSubmit: SubmitHandler<INewParam> = (data) => {
+	const onSubmit: SubmitHandler<IKeyValue> = (data) => {
 		dispatch(addParam(data))
 
 		reset()

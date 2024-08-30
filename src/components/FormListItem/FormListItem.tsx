@@ -1,15 +1,23 @@
 'use client'
 import { Button, Grid, TextField } from '@mui/material'
 
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { IKeyValue, restParamsFormSchema } from '@/utils'
+import { restParamsFormSchema } from '@/utils'
+import {
+	delHeader,
+	IKeyValue,
+	IKeyValueID,
+	updateHeader,
+	useAppDispatch,
+} from '@/lib'
 
 interface IFormListItemParams {
-	delHeader: (h: IKeyValue) => void
-	pair: IKeyValue
+	pair: IKeyValueID
 }
-export const FormListItem = ({ delHeader, pair }: IFormListItemParams) => {
+export const FormListItem = ({ pair }: IFormListItemParams) => {
+	const dispatch = useAppDispatch()
+
 	const {
 		register,
 		handleSubmit,
@@ -22,17 +30,13 @@ export const FormListItem = ({ delHeader, pair }: IFormListItemParams) => {
 		resolver: yupResolver(restParamsFormSchema()),
 	})
 
-	const onSubmit: SubmitHandler<IKeyValue> = () => {
-		delHeader(pair)
-	}
-
 	return (
 		<Grid
 			container
 			gap={2}
 			padding={2}
 			component={'form'}
-			onSubmit={handleSubmit(onSubmit)}
+			onSubmit={handleSubmit(() => dispatch(updateHeader(pair)))}
 		>
 			<Grid>
 				<TextField
@@ -53,7 +57,14 @@ export const FormListItem = ({ delHeader, pair }: IFormListItemParams) => {
 				<p>{errors.value?.message || ''}</p>
 			</Grid>
 
-			<Button type='submit'>del</Button>
+			<Button
+				type='button'
+				onClick={() => dispatch(delHeader(pair.id))}
+			>
+				del
+			</Button>
+
+			<Button type='submit'>update</Button>
 		</Grid>
 	)
 }

@@ -46,7 +46,7 @@ export default function SingUp() {
 	}
 
 	const handleClose = (
-		event?: Event | SyntheticEvent<any, Event>,
+		event?: Event | SyntheticEvent<unknown, Event>,
 		reason?: string
 	) => {
 		reason === 'timeout'

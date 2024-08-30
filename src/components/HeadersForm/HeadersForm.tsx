@@ -3,12 +3,12 @@ import { Button, Grid, TextField, Typography } from '@mui/material'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { IKeyValue, restParamsFormSchema } from '@/utils'
+import { restParamsFormSchema } from '@/utils'
+import { addHeader, IKeyValue, useAppDispatch } from '@/lib'
 
-interface IHeaderFormParams {
-	addHeader: (h: IKeyValue) => void
-}
-export const HeadersForm = ({ addHeader }: IHeaderFormParams) => {
+export const HeadersForm = () => {
+	const dispatch = useAppDispatch()
+
 	const {
 		register,
 		handleSubmit,
@@ -23,7 +23,7 @@ export const HeadersForm = ({ addHeader }: IHeaderFormParams) => {
 	})
 
 	const onSubmit: SubmitHandler<IKeyValue> = (data) => {
-		addHeader(data)
+		dispatch(addHeader(data))
 		reset()
 	}
 
