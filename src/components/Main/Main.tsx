@@ -11,7 +11,7 @@ import { Button } from '@mui/material'
 import { AccountCircle, Login } from '@mui/icons-material'
 import { useRouter } from 'next/navigation'
 
-export default function Main({ children }: { children: ReactNode }) {
+export function Main({ children }: { children: ReactNode }) {
 	const [user, loading] = useAuthState(auth)
 	const router = useRouter()
 

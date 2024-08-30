@@ -1,16 +1,20 @@
 'use client'
 
-import { Form } from '@/components/Form/Form'
 import Home from '../page'
+
+import { SyntheticEvent, useState } from 'react'
+
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { MyForm } from '@/utils/types'
+import { formSchema, MyForm } from '@/utils'
+
 import { useRouter } from 'next/navigation'
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
+
 import { auth } from '@/firebase/config'
-import { SyntheticEvent, useState } from 'react'
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
+
 import { Snackbar } from '@mui/material'
-import { formSchema } from '@/utils'
+import { Form } from '@/components'
 
 export default function SingUp() {
 	const [createUserWithEmailAndPassword] =
