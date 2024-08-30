@@ -1,1 +1,3 @@
-export * from './Intro/Intro'
+export * from './Button/Button'
+export * from './Footer/Footer'
+export * from './Header/Header'

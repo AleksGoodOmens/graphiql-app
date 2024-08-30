@@ -1,47 +1,21 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IForms, IValues } from '../interface'
+import { createSlice } from '@reduxjs/toolkit'
 
-const initialState: IForms = {
-	controlledForm: {
-		country: '',
-		name: '',
-		age: undefined,
-		gender: '',
+const initialState = {
+	form: {
 		email: '',
 		password: '',
-		confirmPassword: '',
-		termsConditions: false,
 	},
-	uncontrolledForm: {
-		country: '',
-		name: '',
-		age: undefined,
-		gender: '',
-		email: '',
-		password: '',
-		confirmPassword: '',
-		termsConditions: false,
-	},
-
-	showPassword: false,
 }
 
-const formsSlice = createSlice({
+const formSlice = createSlice({
 	name: 'form',
 	initialState,
 	reducers: {
-		setControlledValues(state, { payload }: PayloadAction<IValues>) {
-			state.controlledForm = payload
-		},
-		setUnControlledValues(state, { payload }: PayloadAction<IValues>) {
-			state.uncontrolledForm = payload
-		},
-		setShowPassword(state) {
-			state.showPassword = !state.showPassword
+		submitForm(state, action) {
+			state.form = action.payload
 		},
 	},
 })
 
-export const { setControlledValues, setUnControlledValues, setShowPassword } =
-	formsSlice.actions
-export default formsSlice.reducer
+export const { submitForm } = formSlice.actions
+export default formSlice.reducer

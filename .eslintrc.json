@@ -6,15 +6,18 @@
 	},
 	"extends": [
 		"eslint:recommended",
+		"plugin:react-hooks/recommended",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:@typescript-eslint/recommended-requiring-type-checking",
-		"plugin:prettier/recommended",
 		"next/core-web-vitals",
+		"plugin:prettier/recommended",
 		"prettier"
 	],
-	"plugins": ["@typescript-eslint"],
+	"plugins": ["@typescript-eslint", "react-hooks", "prettier"],
 	"rules": {
 		"@typescript-eslint/no-unsafe-assignment": 0,
-		"@typescript-eslint/no-floating-promises": 0
+		"@typescript-eslint/no-floating-promises": 0,
+		"@typescript-eslint/no-misused-promises": 0,
+		"@typescript-eslint/no-unsafe-call": 0
 	}
 }

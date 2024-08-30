@@ -1,10 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import countriesSlice from './slices/countries.slice'
-import formsSlice from './slices/forms.slice'
+import formSlice from './slices/forms.slice'
 
 const rootReducers = combineReducers({
-	forms: formsSlice,
-	countries: countriesSlice,
+	auth: formSlice,
 })
 
 export const setupStore = () => {
@@ -18,4 +16,3 @@ export type AppDispatch = AppStore['dispatch']
 
 export * from './hooks/hooks'
 export * from './slices/forms.slice'
-export * from './selectors/index'
