@@ -1,4 +1,6 @@
 'use client'
+import { themeSettings } from '@/themes'
+import { ThemeProvider } from '@mui/material'
 import { createContext, ReactNode, useState } from 'react'
 
 export const ThemeContext = createContext({
@@ -9,7 +11,7 @@ export const ThemeContext = createContext({
 })
 
 export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
-	const [mode, setThemeMode] = useState<'light' | 'dark'>('light')
+	const [mode, setThemeMode] = useState<'light' | 'dark'>('dark')
 
 	const toggleTheme = () => {
 		setThemeMode((prev) => (prev === 'light' ? 'dark' : 'light'))
@@ -17,7 +19,7 @@ export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
 
 	return (
 		<ThemeContext.Provider value={{ mode, toggleTheme }}>
-			{children}
+			<ThemeProvider theme={themeSettings(mode)}>{children}</ThemeProvider>
 		</ThemeContext.Provider>
 	)
 }

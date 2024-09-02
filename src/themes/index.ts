@@ -1,9 +1,7 @@
-interface ThemeSettingsProps {
-	mode: 'light' | 'dark'
-}
+import { createTheme } from '@mui/material'
 
-export const themeSettings = ({ mode }: ThemeSettingsProps) => {
-	return {
+export const themeSettings = (mode: 'light' | 'dark') => {
+	const theme = createTheme({
 		palette: {
 			mode: mode,
 			primary: {
@@ -13,5 +11,6 @@ export const themeSettings = ({ mode }: ThemeSettingsProps) => {
 				main: '#5FBBAD',
 			},
 		},
-	}
+	})
+	return theme
 }

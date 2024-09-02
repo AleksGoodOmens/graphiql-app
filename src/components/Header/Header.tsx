@@ -74,7 +74,14 @@ export default function Header() {
 							</Button>
 						</div>
 					)}
-					{<button onClick={toggleTheme}>change theme to: {mode}</button>}
+					{
+						<Button
+							variant='contained'
+							onClick={toggleTheme}
+						>
+							change theme to: {mode === 'dark' ? 'light' : 'dark'}
+						</Button>
+					}
 					<FormControlLabel
 						control={
 							<Switch
