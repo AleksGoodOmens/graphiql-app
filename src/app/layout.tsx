@@ -1,13 +1,9 @@
 import type { Metadata } from 'next'
-import { Oxygen } from 'next/font/google'
 import './globals.css'
 import { ReactNode } from 'react'
-import { StoreProvider, theme } from '@/providers'
+import { ContextProviders } from '@/providers'
 import Header from '@/components/Header/Header'
 import Footer from '@/components/Footer/Footer'
-import { CssBaseline, ThemeProvider } from '@mui/material'
-
-const oxygen = Oxygen({ weight: '300', subsets: ['latin'] })
 
 export const metadata: Metadata = {
 	title: 'CodeADE',
@@ -20,17 +16,14 @@ export default function RootLayout({
 	children: ReactNode
 }>) {
 	return (
-		<ThemeProvider theme={theme}>
-			<CssBaseline />
-			<StoreProvider>
-				<html lang='en'>
-					<body className={oxygen.className}>
-						<Header />
-						{children}
-						<Footer />
-					</body>
-				</html>
-			</StoreProvider>
-		</ThemeProvider>
+		<ContextProviders>
+			<html lang='en'>
+				<body>
+					<Header />
+					{children}
+					<Footer />
+				</body>
+			</html>
+		</ContextProviders>
 	)
 }

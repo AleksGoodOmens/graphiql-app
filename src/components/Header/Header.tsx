@@ -7,13 +7,15 @@ import { auth } from '@/firebase/config'
 import { signOut } from 'firebase/auth'
 import { AccountCircle, Login, Logout } from '@mui/icons-material'
 import { Button, FormControlLabel, Switch } from '@mui/material'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { ThemeContext } from '@/providers/ThemeContext/ThemeContext'
 
 export default function Header() {
 	const [user] = useAuthState(auth)
 	const [checked, setChecked] = useState(true)
 	const router = useRouter()
+	const { mode, toggleTheme } = useContext(ThemeContext)
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setChecked(event.target.checked)
@@ -72,6 +74,7 @@ export default function Header() {
 							</Button>
 						</div>
 					)}
+					{<button onClick={toggleTheme}>change theme to: {mode}</button>}
 					<FormControlLabel
 						control={
 							<Switch
