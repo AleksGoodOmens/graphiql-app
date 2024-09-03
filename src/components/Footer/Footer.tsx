@@ -4,7 +4,7 @@ import Image from 'next/image'
 import rsschoollogo from '../../assets/rs_school_logo.svg'
 import Link from 'next/link'
 
-export default function Footer() {
+export function Footer() {
 	return (
 		<footer>
 			<div className={styles['footer-wrapper']}>

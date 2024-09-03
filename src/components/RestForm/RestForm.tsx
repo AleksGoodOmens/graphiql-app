@@ -124,10 +124,8 @@ export const RestForm = () => {
 			</Grid>
 			<Grid xs={2}>
 				<Button
-					variant='contained'
+					variant='send'
 					disabled={isLoading}
-					fullWidth
-					size='large'
 					endIcon={<ScheduleSendIcon />}
 					type='submit'
 				>

@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { ReactNode } from 'react'
 import { ContextProviders } from '@/providers'
-import Header from '@/components/Header/Header'
-import Footer from '@/components/Footer/Footer'
+
+import { Footer, Header } from '@/components'
 
 export const metadata: Metadata = {
 	title: 'CodeADE',
