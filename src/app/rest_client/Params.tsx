@@ -1,8 +1,7 @@
 'use client'
 import { RestParamsForm, RestParamsListForm } from '@/components'
 import { restClientNewParamsSelector, useAppSelector } from '@/lib'
-
-export default function ParamsSection() {
+export const Params = () => {
 	const newParams = useAppSelector(restClientNewParamsSelector)
 
 	return (

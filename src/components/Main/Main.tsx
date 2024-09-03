@@ -5,18 +5,18 @@ import styles from './Main.module.css'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '@/firebase/config'
 import { ReactNode } from 'react'
-import Loading from '@/app/loading'
 import Link from 'next/link'
 import { Button } from '@mui/material'
 import { AccountCircle, Login } from '@mui/icons-material'
 import { useRouter } from 'next/navigation'
+import { Loader } from '../Loader/loader'
 
 export function Main({ children }: { children: ReactNode }) {
 	const [user, loading] = useAuthState(auth)
 	const router = useRouter()
 
 	if (loading) {
-		return <Loading />
+		return <Loader />
 	}
 
 	return (

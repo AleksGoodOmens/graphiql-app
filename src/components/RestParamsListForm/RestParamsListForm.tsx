@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form'
 import { useEffect } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { restParamsFormSchema } from '@/utils'
+import { DeleteForeverRounded } from '@mui/icons-material'
 
 export interface IRestParamsListForm {
 	pair: {
@@ -71,7 +72,7 @@ export const RestParamsListForm = ({ pair, id }: IRestParamsListForm) => {
 					onBlur: () =>
 						dispatch(updateParam({ key: keyInput, value: valueInput, id: id })),
 				})}
-				variant='standard'
+				variant='outlined'
 			/>
 			<p>{errors.key?.message || ''}</p>
 
@@ -80,15 +81,18 @@ export const RestParamsListForm = ({ pair, id }: IRestParamsListForm) => {
 					onBlur: () =>
 						dispatch(updateParam({ key: keyInput, value: valueInput, id: id })),
 				})}
-				variant='standard'
+				variant='outlined'
 			/>
 			<p>{errors.value?.message || ''}</p>
 
 			<Button
 				type='button'
+				variant='contained'
+				size='large'
+				sx={{ alignSelf: 'center' }}
 				onClick={() => dispatch(delParam(id))}
 			>
-				delete
+				<DeleteForeverRounded />
 			</Button>
 		</Grid>
 	)

@@ -2,7 +2,7 @@
 
 import { restClientSelector, useAppSelector } from '@/lib'
 import { FormListItem } from '../FormListItem/FormListItem'
-import { Loader } from '@/app/rest_client/loader'
+import { Loader } from '../Loader/loader'
 
 export const FormList = () => {
 	const { headers, isLoading } = useAppSelector(restClientSelector)

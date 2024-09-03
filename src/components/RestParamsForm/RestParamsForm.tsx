@@ -2,9 +2,10 @@
 import { Button, Grid, TextField } from '@mui/material'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { addParam, IKeyValue, IKeyValueID, useAppDispatch } from '@/lib'
+import { addParam, IKeyValue, useAppDispatch } from '@/lib'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { restParamsFormSchema } from '@/utils'
+import { Save } from '@mui/icons-material'
 
 export const RestParamsForm = () => {
 	const {
@@ -39,7 +40,7 @@ export const RestParamsForm = () => {
 			<Grid>
 				<TextField
 					{...register('key')}
-					variant='standard'
+					variant='outlined'
 					name='key'
 				/>
 				<p>{errors.key?.message || ''}</p>
@@ -47,13 +48,21 @@ export const RestParamsForm = () => {
 			<Grid>
 				<TextField
 					{...register('value')}
-					variant='standard'
+					variant='outlined'
 					name='value'
 				/>
 				<p>{errors.value?.message || ''}</p>
 			</Grid>
 
-			<Button type='submit'>Add Search Params</Button>
+			<Button
+				type='submit'
+				variant='contained'
+				size='large'
+				color='success'
+				sx={{ alignSelf: 'center' }}
+			>
+				<Save />
+			</Button>
 		</Grid>
 	)
 }

@@ -10,7 +10,7 @@ import {
 
 import { HTTPMethods, restFormSchema } from '@/utils'
 
-import { Box, Button, MenuItem, Select, TextField } from '@mui/material'
+import { Button, MenuItem, Select, TextField, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import ScheduleSendIcon from '@mui/icons-material/ScheduleSend'
 
@@ -87,7 +87,7 @@ export const RestForm = () => {
 					{...register('HTTPMethod')}
 					defaultValue={'GET'}
 					fullWidth
-					variant='standard'
+					variant='outlined'
 					labelId='method-select'
 					label='Method'
 					sx={{ height: '100%' }}
@@ -111,23 +111,24 @@ export const RestForm = () => {
 					{...register('RequestUrl')}
 					fullWidth
 					label='RequestUrl'
-					variant='standard'
+					variant='outlined'
 				/>
-				<Box
-					component={'p'}
+				<Typography
 					position={'absolute'}
 					left={0}
 					bottom={-32}
 				>
 					{errors['RequestUrl']?.message}
-				</Box>
+				</Typography>
 			</Grid>
 			<Grid xs={2}>
 				<Button
-					variant='send'
+					variant='contained'
 					disabled={isLoading}
 					endIcon={<ScheduleSendIcon />}
 					type='submit'
+					size='large'
+					color='info'
 				>
 					{!isLoading ? 'Send' : 'Sending...'}
 				</Button>

@@ -11,6 +11,7 @@ import {
 	updateHeader,
 	useAppDispatch,
 } from '@/lib'
+import { DeleteOutlineOutlined, Save } from '@mui/icons-material'
 
 interface IFormListItemParams {
 	pair: IKeyValueID
@@ -42,7 +43,7 @@ export const FormListItem = ({ pair }: IFormListItemParams) => {
 				<TextField
 					{...register('key')}
 					label='Header key'
-					variant='standard'
+					variant='outlined'
 					name='key'
 				/>
 				<p>{errors.key?.message || ''}</p>
@@ -51,7 +52,7 @@ export const FormListItem = ({ pair }: IFormListItemParams) => {
 				<TextField
 					{...register('value')}
 					label='Header value'
-					variant='standard'
+					variant='outlined'
 					name='value'
 				/>
 				<p>{errors.value?.message || ''}</p>
@@ -59,12 +60,20 @@ export const FormListItem = ({ pair }: IFormListItemParams) => {
 
 			<Button
 				type='button'
+				variant='contained'
+				color='warning'
 				onClick={() => dispatch(delHeader(pair.id))}
 			>
-				del
+				<DeleteOutlineOutlined />
 			</Button>
 
-			<Button type='submit'>update</Button>
+			<Button
+				type='submit'
+				variant='contained'
+				color='success'
+			>
+				<Save />
+			</Button>
 		</Grid>
 	)
 }
