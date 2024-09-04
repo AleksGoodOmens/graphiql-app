@@ -30,7 +30,7 @@ export interface IOnSubmitAction {
 	onSubmit: (d: IFetchData) => Promise<IRestClientResponse>
 }
 
-export const RestForm = () => {
+export const RequestForm = () => {
 	const [isLoading, setIsLoading] = useState(false)
 
 	const router = useRouter()

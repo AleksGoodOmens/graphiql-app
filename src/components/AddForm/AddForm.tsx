@@ -4,12 +4,11 @@ import { Button, Grid, TextField, Typography } from '@mui/material'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { restParamsFormSchema } from '@/utils'
-import { addHeader, IKeyValue, useAppDispatch } from '@/lib'
+import { addHeader, addParam, IKeyValue, useAppDispatch } from '@/lib'
 import { Save } from '@mui/icons-material'
 
-export const HeadersForm = () => {
+export const AddForm = ({ title }: { title: string }) => {
 	const dispatch = useAppDispatch()
-
 	const {
 		register,
 		handleSubmit,
@@ -24,7 +23,11 @@ export const HeadersForm = () => {
 	})
 
 	const onSubmit: SubmitHandler<IKeyValue> = (data) => {
-		dispatch(addHeader(data))
+		if (title === 'Headers') {
+			dispatch(addHeader(data))
+		} else {
+			dispatch(addParam(data))
+		}
 		reset()
 	}
 
@@ -34,7 +37,7 @@ export const HeadersForm = () => {
 				variant='h4'
 				component={'h4'}
 			>
-				Headers:
+				{title}:
 			</Typography>
 			<Grid
 				container
@@ -46,7 +49,7 @@ export const HeadersForm = () => {
 				<Grid>
 					<TextField
 						{...register('key')}
-						label='Header key'
+						label={`${title} key`}
 						variant='outlined'
 						name='key'
 					/>
@@ -55,7 +58,7 @@ export const HeadersForm = () => {
 				<Grid>
 					<TextField
 						{...register('value')}
-						label='Header value'
+						label={`${title} value`}
 						variant='outlined'
 						name='value'
 					/>

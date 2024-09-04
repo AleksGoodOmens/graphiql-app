@@ -1,9 +1,8 @@
-import { RestForm } from '@/components'
+import { RequestForm } from '@/components'
 import { Container, Typography } from '@mui/material'
 import type { Metadata } from 'next'
 import { ReactNode } from 'react'
-import { Headers } from './Headers'
-import { Params } from './Params'
+import { RequestEditor } from './RequestEditor'
 
 export const metadata: Metadata = {
 	title: 'CodeADE - Rest client',
@@ -26,9 +25,8 @@ export default function RootLayout({
 			>
 				Rest Client page
 			</Typography>
-			<RestForm />
-			<Params />
-			<Headers />
+			<RequestForm />
+			<RequestEditor />
 			{children}
 		</Container>
 	)

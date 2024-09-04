@@ -1,32 +1,41 @@
 'use client'
 import { Button, Grid, TextField } from '@mui/material'
 
-import { useForm, SubmitHandler } from 'react-hook-form'
-import { addParam, IKeyValue, useAppDispatch } from '@/lib'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { restParamsFormSchema } from '@/utils'
-import { Save } from '@mui/icons-material'
+import {
+	delHeader,
+	IKeyValue,
+	IKeyValueID,
+	updateHeader,
+	useAppDispatch,
+} from '@/lib'
+import { DeleteOutlineOutlined, Save } from '@mui/icons-material'
 
-export const RestParamsForm = () => {
+interface IFormListItemParams {
+	pair: IKeyValueID
+	instance: string
+}
+export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
+	const dispatch = useAppDispatch()
+
 	const {
 		register,
 		handleSubmit,
-		reset,
 		formState: { errors },
 	} = useForm<IKeyValue>({
 		defaultValues: {
-			key: '',
-			value: '',
+			key: pair.key,
+			value: pair.value,
 		},
 		resolver: yupResolver(restParamsFormSchema()),
 	})
 
-	const dispatch = useAppDispatch()
-
-	const onSubmit: SubmitHandler<IKeyValue> = (data) => {
-		dispatch(addParam(data))
-
-		reset()
+	const onSubmit = () => {
+		if (instance === 'Header') {
+			dispatch(updateHeader(pair))
+		}
 	}
 
 	return (
@@ -40,6 +49,7 @@ export const RestParamsForm = () => {
 			<Grid>
 				<TextField
 					{...register('key')}
+					label={`${instance} key`}
 					variant='outlined'
 					name='key'
 				/>
@@ -48,6 +58,7 @@ export const RestParamsForm = () => {
 			<Grid>
 				<TextField
 					{...register('value')}
+					label='Header value'
 					variant='outlined'
 					name='value'
 				/>
@@ -55,11 +66,18 @@ export const RestParamsForm = () => {
 			</Grid>
 
 			<Button
+				type='button'
+				variant='contained'
+				color='warning'
+				onClick={() => dispatch(delHeader(pair.id))}
+			>
+				<DeleteOutlineOutlined />
+			</Button>
+
+			<Button
 				type='submit'
 				variant='contained'
-				size='large'
 				color='success'
-				sx={{ alignSelf: 'center' }}
 			>
 				<Save />
 			</Button>

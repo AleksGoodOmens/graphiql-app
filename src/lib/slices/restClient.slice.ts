@@ -52,7 +52,7 @@ const restClientSlice = createSlice({
 			state: IRestClientInitialState,
 			{ payload }: PayloadAction<IKeyValue>
 		) {
-			state.newParams.push(payload)
+			state.newParams = [...state.newParams, payload]
 			const paramsString = paramsToString(state.newParams)
 			state.url = state.baseUrl + (paramsString ? `?${paramsString}` : '')
 		},
