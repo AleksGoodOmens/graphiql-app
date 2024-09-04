@@ -64,10 +64,13 @@ export const RequestForm = () => {
 
 	const onSubmit = async () => {
 		setIsLoading(!isLoading)
+		setIsLoading(!isLoading)
 		const responseData = await fetchData({
 			HTTPMethod: HTTPMethod,
 			RequestUrl: RequestUrlValue,
 		})
+		setIsLoading(!isLoading)
+
 		setIsLoading(!isLoading)
 
 		const encodedData = encodeURIComponent(JSON.stringify(responseData))
@@ -130,6 +133,7 @@ export const RequestForm = () => {
 					size='large'
 					color='info'
 				>
+					{!isLoading ? 'Send' : 'Sending...'}
 					{!isLoading ? 'Send' : 'Sending...'}
 				</Button>
 			</Grid>
