@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { restParamsFormSchema } from '@/utils'
 import { addHeader, addParam, IKeyValue, useAppDispatch } from '@/lib'
 import { Save } from '@mui/icons-material'
+import { useEffect } from 'react'
 
 export const AddForm = ({ title }: { title: string }) => {
 	const dispatch = useAppDispatch()
@@ -13,6 +14,7 @@ export const AddForm = ({ title }: { title: string }) => {
 		register,
 		handleSubmit,
 		reset,
+		clearErrors,
 		formState: { errors },
 	} = useForm<IKeyValue>({
 		defaultValues: {
@@ -30,6 +32,15 @@ export const AddForm = ({ title }: { title: string }) => {
 		}
 		reset()
 	}
+
+	useEffect(() => {
+		const resetErrorTimer = setTimeout(() => {
+			clearErrors(['key', 'value'])
+		}, 3000)
+		return () => {
+			clearInterval(resetErrorTimer)
+		}
+	}, [clearErrors, errors.key, errors.value])
 
 	return (
 		<>
@@ -53,7 +64,12 @@ export const AddForm = ({ title }: { title: string }) => {
 						variant='outlined'
 						name='key'
 					/>
-					<p>{errors.key?.message || ''}</p>
+					<Typography
+						variant='body2'
+						color='error'
+					>
+						{errors.key?.message || ''}
+					</Typography>
 				</Grid>
 				<Grid>
 					<TextField
@@ -62,7 +78,12 @@ export const AddForm = ({ title }: { title: string }) => {
 						variant='outlined'
 						name='value'
 					/>
-					<p>{errors.value?.message || ''}</p>
+					<Typography
+						variant='body2'
+						color='error'
+					>
+						{errors.value?.message || ''}
+					</Typography>
 				</Grid>
 
 				<Button

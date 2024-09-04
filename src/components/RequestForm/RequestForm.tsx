@@ -39,6 +39,7 @@ export const RequestForm = () => {
 		handleSubmit,
 		setValue,
 		watch,
+		clearErrors,
 		formState: { errors },
 	} = useForm<Inputs>({
 		mode: 'onChange',
@@ -64,18 +65,24 @@ export const RequestForm = () => {
 
 	const onSubmit = async () => {
 		setIsLoading(!isLoading)
-		setIsLoading(!isLoading)
 		const responseData = await fetchData({
 			HTTPMethod: HTTPMethod,
 			RequestUrl: RequestUrlValue,
 		})
 		setIsLoading(!isLoading)
 
-		setIsLoading(!isLoading)
-
 		const encodedData = encodeURIComponent(JSON.stringify(responseData))
 		router.push(`/rest_client/${HTTPMethod}?data=${encodedData}`)
 	}
+
+	useEffect(() => {
+		const resetErrorTimer = setTimeout(() => {
+			clearErrors(['RequestUrl'])
+		}, 3000)
+		return () => {
+			clearInterval(resetErrorTimer)
+		}
+	}, [clearErrors, errors.RequestUrl])
 
 	return (
 		<Grid
@@ -118,6 +125,8 @@ export const RequestForm = () => {
 				/>
 				<Typography
 					position={'absolute'}
+					variant='body2'
+					color={'error'}
 					left={0}
 					bottom={-32}
 				>
@@ -133,7 +142,6 @@ export const RequestForm = () => {
 					size='large'
 					color='info'
 				>
-					{!isLoading ? 'Send' : 'Sending...'}
 					{!isLoading ? 'Send' : 'Sending...'}
 				</Button>
 			</Grid>

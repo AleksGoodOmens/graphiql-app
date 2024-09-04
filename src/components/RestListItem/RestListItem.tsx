@@ -1,5 +1,5 @@
 'use client'
-import { Button, Grid, TextField } from '@mui/material'
+import { Button, Grid, TextField, Typography } from '@mui/material'
 
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -14,6 +14,7 @@ import {
 	useAppDispatch,
 } from '@/lib'
 import { DeleteOutlineOutlined, Save } from '@mui/icons-material'
+import { useEffect } from 'react'
 
 interface IFormListItemParams {
 	pair: IKeyValueID
@@ -25,6 +26,7 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 	const {
 		register,
 		handleSubmit,
+		clearErrors,
 		formState: { errors },
 	} = useForm<IKeyValue>({
 		defaultValues: {
@@ -50,6 +52,15 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 		}
 	}
 
+	useEffect(() => {
+		const resetErrorTimer = setTimeout(() => {
+			clearErrors(['key', 'value'])
+		}, 3000)
+		return () => {
+			clearInterval(resetErrorTimer)
+		}
+	}, [clearErrors, errors.key, errors.value])
+
 	return (
 		<Grid
 			container
@@ -65,7 +76,12 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 					variant='outlined'
 					name='key'
 				/>
-				<p>{errors.key?.message || ''}</p>
+				<Typography
+					variant='body2'
+					color='error'
+				>
+					{errors.key?.message || ''}
+				</Typography>
 			</Grid>
 			<Grid>
 				<TextField
@@ -74,7 +90,12 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 					variant='outlined'
 					name='value'
 				/>
-				<p>{errors.value?.message || ''}</p>
+				<Typography
+					variant='body2'
+					color='error'
+				>
+					{errors.value?.message || ''}
+				</Typography>
 			</Grid>
 
 			<Button
