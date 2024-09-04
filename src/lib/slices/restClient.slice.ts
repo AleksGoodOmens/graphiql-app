@@ -31,10 +31,13 @@ const restClientSlice = createSlice({
 		setUrl(state, { payload }: PayloadAction<string>) {
 			if (payload.includes('https://') && payload.length > 10) {
 				const url = new URL(payload)
-				const params = [...url.searchParams].map((p: [string, string]) => ({
-					key: p[0],
-					value: p[1],
-				}))
+				const params = [...url.searchParams].map(
+					(p: [string, string], i: number) => ({
+						key: p[0],
+						value: p[1],
+						id: i,
+					})
+				)
 				state.baseUrl = `${url.protocol}//${url.host}${url.pathname}`
 				state.newParams = params
 
@@ -50,14 +53,17 @@ const restClientSlice = createSlice({
 
 		addParam(
 			state: IRestClientInitialState,
-			{ payload }: PayloadAction<IKeyValue>
+			{ payload }: PayloadAction<IKeyValueID>
 		) {
-			state.newParams = [...state.newParams, payload]
+			state.newParams = [
+				...state.newParams,
+				{ ...payload, id: state.newParams.length },
+			]
 			const paramsString = paramsToString(state.newParams)
 			state.url = state.baseUrl + (paramsString ? `?${paramsString}` : '')
 		},
 		delParam(state, { payload }: PayloadAction<number>) {
-			const updatedParams = state.newParams.filter((_, i) => i !== payload)
+			const updatedParams = state.newParams.filter((p) => p.id !== payload)
 
 			state.newParams = updatedParams
 			const paramsString = paramsToString(updatedParams)
@@ -89,7 +95,9 @@ const restClientSlice = createSlice({
 			state.isLoading = false
 		},
 		delHeader(state, { payload }: PayloadAction<number>) {
-			state.headers = state.headers.filter((h) => h.id !== payload)
+			console.log(payload)
+			const filteredHeaders = state.headers.filter((h) => h.id !== payload)
+			state.headers = filteredHeaders
 		},
 		updateHeader(state, { payload }: PayloadAction<IKeyValueID>) {
 			state.headers = state.headers.map((p) => {

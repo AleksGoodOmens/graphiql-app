@@ -6,9 +6,11 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { restParamsFormSchema } from '@/utils'
 import {
 	delHeader,
+	delParam,
 	IKeyValue,
 	IKeyValueID,
 	updateHeader,
+	updateParam,
 	useAppDispatch,
 } from '@/lib'
 import { DeleteOutlineOutlined, Save } from '@mui/icons-material'
@@ -35,6 +37,16 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 	const onSubmit = () => {
 		if (instance === 'Header') {
 			dispatch(updateHeader(pair))
+		} else if (instance === 'Param') {
+			dispatch(updateParam(pair))
+		}
+	}
+
+	const onDell = () => {
+		if (instance === 'Header') {
+			dispatch(delHeader(pair.id))
+		} else if (instance === 'Param') {
+			dispatch(delParam(pair.id))
 		}
 	}
 
@@ -58,7 +70,7 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 			<Grid>
 				<TextField
 					{...register('value')}
-					label='Header value'
+					label={`${instance} value`}
 					variant='outlined'
 					name='value'
 				/>
@@ -69,7 +81,7 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 				type='button'
 				variant='contained'
 				color='warning'
-				onClick={() => dispatch(delHeader(pair.id))}
+				onClick={() => dispatch(onDell)}
 			>
 				<DeleteOutlineOutlined />
 			</Button>

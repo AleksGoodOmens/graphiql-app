@@ -9,25 +9,27 @@ export const RequestEditor = () => {
 		<Grid container>
 			<section>
 				<AddForm title='Params' />
-				{/* {newParams.map((p) => {
+				{newParams.map((p) => {
 					return (
 						<RestListItem
 							key={p.id}
 							pair={p}
+							instance='Param'
 						/>
 					)
-				})} */}
+				})}
 			</section>
 			<section>
 				<AddForm title='Headers' />
-				{/* {headers.map((p) => {
+				{headers.map((p) => {
 					return (
 						<RestListItem
 							key={p.id}
 							pair={p}
+							instance='Header'
 						/>
 					)
-				})} */}
+				})}
 			</section>
 		</Grid>
 	)

@@ -24,7 +24,7 @@ export interface IRestClientInitialState {
 	isLoading: boolean
 	isError: boolean
 	response: IRestClientResponse
-	newParams: IKeyValue[]
+	newParams: IKeyValueID[]
 
 	headers: IKeyValueID[]
 }
