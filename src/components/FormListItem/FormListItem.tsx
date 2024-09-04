@@ -1,32 +1,34 @@
 'use client'
 import { Button, Grid, TextField } from '@mui/material'
 
-import { useForm, SubmitHandler } from 'react-hook-form'
-import { addParam, IKeyValue, IKeyValueID, useAppDispatch } from '@/lib'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { restParamsFormSchema } from '@/utils'
+import {
+	delHeader,
+	IKeyValue,
+	IKeyValueID,
+	updateHeader,
+	useAppDispatch,
+} from '@/lib'
 
-export const RestParamsForm = () => {
+interface IFormListItemParams {
+	pair: IKeyValueID
+}
+export const FormListItem = ({ pair }: IFormListItemParams) => {
+	const dispatch = useAppDispatch()
+
 	const {
 		register,
 		handleSubmit,
-		reset,
 		formState: { errors },
 	} = useForm<IKeyValue>({
 		defaultValues: {
-			key: '',
-			value: '',
+			key: pair.key,
+			value: pair.value,
 		},
 		resolver: yupResolver(restParamsFormSchema()),
 	})
-
-	const dispatch = useAppDispatch()
-
-	const onSubmit: SubmitHandler<IKeyValue> = (data) => {
-		dispatch(addParam(data))
-
-		reset()
-	}
 
 	return (
 		<Grid
@@ -34,11 +36,12 @@ export const RestParamsForm = () => {
 			gap={2}
 			padding={2}
 			component={'form'}
-			onSubmit={handleSubmit(onSubmit)}
+			onSubmit={handleSubmit(() => dispatch(updateHeader(pair)))}
 		>
 			<Grid>
 				<TextField
 					{...register('key')}
+					label='Header key'
 					variant='standard'
 					name='key'
 				/>
@@ -47,13 +50,21 @@ export const RestParamsForm = () => {
 			<Grid>
 				<TextField
 					{...register('value')}
+					label='Header value'
 					variant='standard'
 					name='value'
 				/>
 				<p>{errors.value?.message || ''}</p>
 			</Grid>
 
-			<Button type='submit'>Add Search Params</Button>
+			<Button
+				type='button'
+				onClick={() => dispatch(delHeader(pair.id))}
+			>
+				del
+			</Button>
+
+			<Button type='submit'>update</Button>
 		</Grid>
 	)
 }

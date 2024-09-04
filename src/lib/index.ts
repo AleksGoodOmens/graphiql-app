@@ -21,3 +21,4 @@ export * from './slices/forms.slice'
 export * from './selectors/index'
 
 export * from './slices/restClient.slice'
+export * from './types'

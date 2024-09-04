@@ -18,7 +18,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { fetchData, IFetchData } from '@/app/rest_client/actions'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 export interface Inputs {
@@ -31,6 +31,8 @@ export interface IOnSubmitAction {
 }
 
 export const RestForm = () => {
+	const [isLoading, setIsLoading] = useState(false)
+
 	const router = useRouter()
 	const {
 		register,
@@ -61,10 +63,13 @@ export const RestForm = () => {
 	}, [url, dispatch, setValue])
 
 	const onSubmit = async () => {
+		setIsLoading(!isLoading)
 		const responseData = await fetchData({
 			HTTPMethod: HTTPMethod,
 			RequestUrl: RequestUrlValue,
 		})
+		setIsLoading(!isLoading)
+
 		const encodedData = encodeURIComponent(JSON.stringify(responseData))
 		router.push(`/rest_client/${HTTPMethod}?data=${encodedData}`)
 	}
@@ -120,12 +125,13 @@ export const RestForm = () => {
 			<Grid xs={2}>
 				<Button
 					variant='contained'
+					disabled={isLoading}
 					fullWidth
 					size='large'
 					endIcon={<ScheduleSendIcon />}
 					type='submit'
 				>
-					Send
+					{!isLoading ? 'Send' : 'Sending...'}
 				</Button>
 			</Grid>
 		</Grid>

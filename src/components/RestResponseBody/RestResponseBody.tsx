@@ -33,7 +33,7 @@ export const RestResponseBody = () => {
 					variant='h3'
 					component={'h3'}
 				>
-					Body
+					{body}
 				</Typography>
 			</Box>
 		</Box>

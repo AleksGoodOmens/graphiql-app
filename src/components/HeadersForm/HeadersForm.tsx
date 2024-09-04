@@ -1,12 +1,14 @@
 'use client'
-import { Button, Grid, TextField } from '@mui/material'
+import { Button, Grid, TextField, Typography } from '@mui/material'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { addParam, IKeyValue, IKeyValueID, useAppDispatch } from '@/lib'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { restParamsFormSchema } from '@/utils'
+import { addHeader, IKeyValue, useAppDispatch } from '@/lib'
 
-export const RestParamsForm = () => {
+export const HeadersForm = () => {
+	const dispatch = useAppDispatch()
+
 	const {
 		register,
 		handleSubmit,
@@ -20,11 +22,8 @@ export const RestParamsForm = () => {
 		resolver: yupResolver(restParamsFormSchema()),
 	})
 
-	const dispatch = useAppDispatch()
-
 	const onSubmit: SubmitHandler<IKeyValue> = (data) => {
-		dispatch(addParam(data))
-
+		dispatch(addHeader(data))
 		reset()
 	}
 
@@ -36,9 +35,16 @@ export const RestParamsForm = () => {
 			component={'form'}
 			onSubmit={handleSubmit(onSubmit)}
 		>
+			<Typography
+				variant='h3'
+				component={'h3'}
+			>
+				Headers:
+			</Typography>
 			<Grid>
 				<TextField
 					{...register('key')}
+					label='Header key'
 					variant='standard'
 					name='key'
 				/>
@@ -47,13 +53,14 @@ export const RestParamsForm = () => {
 			<Grid>
 				<TextField
 					{...register('value')}
+					label='Header value'
 					variant='standard'
 					name='value'
 				/>
 				<p>{errors.value?.message || ''}</p>
 			</Grid>
 
-			<Button type='submit'>Add Search Params</Button>
+			<Button type='submit'>Add header param</Button>
 		</Grid>
 	)
 }
