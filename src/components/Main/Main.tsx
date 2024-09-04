@@ -5,7 +5,6 @@ import styles from './Main.module.css'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '@/firebase/config'
 import { ReactNode } from 'react'
-import Link from 'next/link'
 import { Button } from '@mui/material'
 import { AccountCircle, Login } from '@mui/icons-material'
 import { useRouter } from 'next/navigation'
@@ -26,9 +25,25 @@ export function Main({ children }: { children: ReactNode }) {
 				<div className={styles['main-wrapper']}>
 					<h2>Welcome Back, {user.email}!</h2>
 					<div className={styles['main-links']}>
-						<Link href='/rest_client'>REST Client</Link>
-						<p>GraphiQL Client</p>
-						<p>History</p>
+						<Button
+							onClick={() => router.push('/rest_client')}
+							variant='contained'
+							color='success'
+						>
+							REST Client
+						</Button>
+						<Button
+							variant='contained'
+							color='success'
+						>
+							GraphiQL Client
+						</Button>
+						<Button
+							variant='contained'
+							color='success'
+						>
+							History
+						</Button>
 					</div>
 				</div>
 			) : (
@@ -37,11 +52,7 @@ export function Main({ children }: { children: ReactNode }) {
 						variant='contained'
 						startIcon={<Login />}
 						onClick={() => router.push('/signin')}
-						style={{
-							backgroundColor: '#D25B01',
-							borderColor: '#D25B01',
-							color: '#FFFFE0',
-						}}
+						color='primary'
 					>
 						Sign In
 					</Button>
@@ -49,11 +60,7 @@ export function Main({ children }: { children: ReactNode }) {
 						variant='contained'
 						startIcon={<AccountCircle />}
 						onClick={() => router.push('/signup')}
-						style={{
-							backgroundColor: '#5B1C02',
-							borderColor: '#5B1C02',
-							color: '#FFFFE0',
-						}}
+						color='error'
 					>
 						Sign Up
 					</Button>

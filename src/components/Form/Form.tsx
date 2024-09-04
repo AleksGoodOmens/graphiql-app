@@ -2,8 +2,11 @@ import styles from './Form.module.css'
 
 import { Button, TextField } from '@mui/material'
 import { FormProps } from './Form.type'
+import { useContext } from 'react'
+import { ThemeContext } from '@/providers/ThemeContext/ThemeContext'
 
 export function Form({ register, handleSubmit, errors }: FormProps) {
+	const { mode } = useContext(ThemeContext)
 	return (
 		<form
 			onSubmit={handleSubmit}
@@ -25,7 +28,7 @@ export function Form({ register, handleSubmit, errors }: FormProps) {
 				<Button
 					type='submit'
 					variant='contained'
-					style={{ backgroundColor: '#EAA724' }}
+					color={mode === 'dark' ? 'success' : 'secondary'}
 				>
 					Submit
 				</Button>
