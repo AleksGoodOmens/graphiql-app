@@ -1,14 +1,6 @@
-import { Typography } from '@mui/material'
+import { Loader } from '@/components'
 
 const MyTestLoader = () => {
-	return (
-		<Typography
-			component={'h1'}
-			variant='h1'
-			textAlign={'center'}
-		>
-			Loading...
-		</Typography>
-	)
+	return <Loader />
 }
 export default MyTestLoader

@@ -10,7 +10,7 @@ import {
 
 import { HTTPMethods, restFormSchema } from '@/utils'
 
-import { Box, Button, MenuItem, Select, TextField } from '@mui/material'
+import { Button, MenuItem, Select, TextField, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
 import ScheduleSendIcon from '@mui/icons-material/ScheduleSend'
 
@@ -30,7 +30,7 @@ export interface IOnSubmitAction {
 	onSubmit: (d: IFetchData) => Promise<IRestClientResponse>
 }
 
-export const RestForm = () => {
+export const RequestForm = () => {
 	const [isLoading, setIsLoading] = useState(false)
 
 	const router = useRouter()
@@ -64,10 +64,13 @@ export const RestForm = () => {
 
 	const onSubmit = async () => {
 		setIsLoading(!isLoading)
+		setIsLoading(!isLoading)
 		const responseData = await fetchData({
 			HTTPMethod: HTTPMethod,
 			RequestUrl: RequestUrlValue,
 		})
+		setIsLoading(!isLoading)
+
 		setIsLoading(!isLoading)
 
 		const encodedData = encodeURIComponent(JSON.stringify(responseData))
@@ -87,7 +90,7 @@ export const RestForm = () => {
 					{...register('HTTPMethod')}
 					defaultValue={'GET'}
 					fullWidth
-					variant='standard'
+					variant='outlined'
 					labelId='method-select'
 					label='Method'
 					sx={{ height: '100%' }}
@@ -111,26 +114,26 @@ export const RestForm = () => {
 					{...register('RequestUrl')}
 					fullWidth
 					label='RequestUrl'
-					variant='standard'
+					variant='outlined'
 				/>
-				<Box
-					component={'p'}
+				<Typography
 					position={'absolute'}
 					left={0}
 					bottom={-32}
 				>
 					{errors['RequestUrl']?.message}
-				</Box>
+				</Typography>
 			</Grid>
 			<Grid xs={2}>
 				<Button
 					variant='contained'
 					disabled={isLoading}
-					fullWidth
-					size='large'
 					endIcon={<ScheduleSendIcon />}
 					type='submit'
+					size='large'
+					color='info'
 				>
+					{!isLoading ? 'Send' : 'Sending...'}
 					{!isLoading ? 'Send' : 'Sending...'}
 				</Button>
 			</Grid>
