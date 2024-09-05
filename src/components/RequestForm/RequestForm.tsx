@@ -1,7 +1,6 @@
 'use client'
 
 import {
-	IRestClientResponse,
 	restClientSelector,
 	setUrl,
 	useAppDispatch,
@@ -17,17 +16,13 @@ import ScheduleSendIcon from '@mui/icons-material/ScheduleSend'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { fetchData, IFetchData } from '@/app/rest_client/actions'
+import { fetchData } from '@/app/rest_client/actions'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 export interface Inputs {
 	HTTPMethod: string
 	RequestUrl: string
-}
-
-export interface IOnSubmitAction {
-	onSubmit: (d: IFetchData) => Promise<IRestClientResponse>
 }
 
 export const RequestForm = () => {

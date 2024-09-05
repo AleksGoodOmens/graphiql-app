@@ -46,7 +46,7 @@ export const AddForm = ({ title }: { title: string }) => {
 		<>
 			<Typography
 				variant='h4'
-				component={'h4'}
+				component={'h2'}
 			>
 				{title}:
 			</Typography>
