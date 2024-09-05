@@ -5,20 +5,24 @@ import styles from './Header.module.css'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '@/firebase/config'
 import { signOut } from 'firebase/auth'
-import { AccountCircle, Login, Logout } from '@mui/icons-material'
-import { Button, FormControlLabel, Switch } from '@mui/material'
+import { AccountCircle, Login, Logout, Home } from '@mui/icons-material'
+import { Button } from '@mui/material'
 import { useContext, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ThemeContext } from '@/providers/ThemeContext/ThemeContext'
+import logo from '../../assets/logo.svg'
+import Image from 'next/image'
 
 export function Header() {
 	const [user] = useAuthState(auth)
-	const [checked, setChecked] = useState(true)
 	const router = useRouter()
 	const { mode, toggleTheme } = useContext(ThemeContext)
+	const [buttonText, setButtonText] = useState('Русский')
 
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setChecked(event.target.checked)
+	const handleClick = () => {
+		setButtonText((prevText) =>
+			prevText === 'Русский' ? 'English' : 'Русский'
+		)
 	}
 
 	const handleLogOut = () => {
@@ -29,32 +33,43 @@ export function Header() {
 	return (
 		<header>
 			<div className={styles['header-wrapper']}>
-				<div className={styles.logo}>Logo</div>
+				<div className={styles.logo}>
+					<Image
+						priority
+						width={50}
+						src={logo}
+						alt='Logo'
+					/>
+				</div>
 				<div className={styles['header-buttons']}>
 					{user ? (
-						<Button
-							onClick={handleLogOut}
-							variant='contained'
-							startIcon={<Logout />}
-							style={{
-								backgroundColor: '#D25B01',
-								borderColor: '#D25B01',
-								color: '#FFFFE0',
-							}}
-						>
-							Sign Out
-						</Button>
+						<div className={styles['header-buttons__account']}>
+							<Button
+								onClick={handleLogOut}
+								variant='contained'
+								startIcon={<Logout />}
+								color='primary'
+								size='small'
+							>
+								Sign Out
+							</Button>
+							<Button
+								onClick={() => router.push('/')}
+								startIcon={<Home />}
+								variant='contained'
+								color='error'
+								size='small'
+							>
+								Main
+							</Button>
+						</div>
 					) : (
 						<div className={styles['header-buttons__account']}>
 							<Button
 								variant='contained'
 								startIcon={<Login />}
 								onClick={() => router.push('/signin')}
-								style={{
-									backgroundColor: '#D25B01',
-									borderColor: '#D25B01',
-									color: '#FFFFE0',
-								}}
+								color='primary'
 								size='small'
 							>
 								Sign In
@@ -63,55 +78,31 @@ export function Header() {
 								variant='contained'
 								startIcon={<AccountCircle />}
 								onClick={() => router.push('/signup')}
-								style={{
-									backgroundColor: '#5B1C02',
-									borderColor: '#5B1C02',
-									color: '#FFFFE0',
-								}}
+								color='error'
 								size='small'
 							>
 								Sign Up
 							</Button>
 						</div>
 					)}
-					{
+					<div className={styles['header-buttons__mode']}>
 						<Button
 							variant='contained'
 							onClick={toggleTheme}
+							size='small'
+							color={mode === 'dark' ? 'success' : 'secondary'}
 						>
-							change theme to: {mode === 'dark' ? 'light' : 'dark'}
+							{mode === 'dark' ? 'light' : 'dark'}
 						</Button>
-					}
-					<FormControlLabel
-						control={
-							<Switch
-								checked={checked}
-								onChange={handleChange}
-								sx={{
-									'& .Mui-checked': {
-										'& .MuiSwitch-thumb': {
-											backgroundColor: '#807622',
-										},
-									},
-									'& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-										backgroundColor: '#807622',
-									},
-									'& .MuiSwitch-switchBase.Mui-checked': {
-										'&:hover': {
-											backgroundColor: '#c4be875a',
-										},
-									},
-								}}
-							/>
-						}
-						label={checked ? 'English' : 'Русский'}
-						sx={{
-							'& .MuiFormControlLabel-label': {
-								fontFamily: 'Oxygen, sans-serif',
-								fontWeight: '300',
-							},
-						}}
-					/>
+						<Button
+							variant='contained'
+							size='small'
+							color={mode === 'dark' ? 'success' : 'secondary'}
+							onClick={handleClick}
+						>
+							{buttonText}
+						</Button>
+					</div>
 				</div>
 			</div>
 		</header>

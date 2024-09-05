@@ -1,59 +1,49 @@
 export const colors = {
-	komunalshik_orange: '#cc4503',
-	marshrutka_yellow: '#e7a840',
-	babushka_red: '#840409',
-	berezka_white: '#d9dde4',
-	izba_green: '#039940',
-	panelka_blue: '#5f9bb0',
-	vesna_grey: '#867a73',
+	main_orange: '#D25B01',
+	main_yellow: '#d4961c',
+	main_red: '#5B1C02',
+	main_white: '#FFFFE0',
+	main_green: '#807622',
+	main_dark: '#3A3920',
 	seledka_purple: '#903468',
 }
 
 export const paletteLight = {
 	primary: {
-		main: colors.komunalshik_orange,
+		main: colors.main_orange,
 	},
 	secondary: {
-		main: colors.marshrutka_yellow,
+		main: colors.main_yellow,
 		contrastText: '#fff',
 	},
 	error: {
-		main: colors.babushka_red,
+		main: colors.main_red,
 	},
 	success: {
-		main: colors.izba_green,
-	},
-	info: {
-		main: colors.panelka_blue,
+		main: colors.main_green,
 	},
 	warning: {
 		main: colors.seledka_purple,
-	},
-	background: {
-		default: colors.berezka_white,
 	},
 }
 export const paletteDark = {
 	primary: {
-		main: colors.komunalshik_orange,
+		main: colors.main_orange,
 	},
 	secondary: {
-		main: colors.marshrutka_yellow,
+		main: colors.main_yellow,
 		contrastText: '#fff',
 	},
 	error: {
-		main: colors.babushka_red,
+		main: colors.main_red,
 	},
 	success: {
-		main: colors.izba_green,
-	},
-	info: {
-		main: colors.panelka_blue,
+		main: colors.main_green,
 	},
 	warning: {
 		main: colors.seledka_purple,
 	},
 	background: {
-		default: colors.vesna_grey,
+		default: colors.main_dark,
 	},
 }

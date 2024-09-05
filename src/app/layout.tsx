@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { ReactNode } from 'react'
 import { ContextProviders } from '@/providers'
-
 import { Footer, Header } from '@/components'
 
 export const metadata: Metadata = {

@@ -16,33 +16,33 @@ export const themeSettings = (mode: 'light' | 'dark') => {
 			...palette,
 		},
 		typography: {
-			fontFamily: 'JetBrains Mono',
+			fontFamily: 'Nunito',
 
 			h1: {
 				margin: '1rem',
-				fontFamily: 'Montserrat',
+				fontFamily: 'Nunito',
 				textTransform: 'capitalize',
 			},
 			h2: {
 				margin: '1rem',
-				fontFamily: 'Montserrat',
+				fontFamily: 'Nunito',
 				textTransform: 'capitalize',
 			},
 			h3: {
 				margin: '1rem',
-				fontFamily: 'Montserrat',
+				fontFamily: 'Nunito',
 				textTransform: 'capitalize',
 			},
 			h4: {
 				margin: '1rem',
-				fontFamily: 'Montserrat',
+				fontFamily: 'Nunito',
 				textTransform: 'capitalize',
 			},
 			subtitle1: {
-				fontFamily: 'Montserrat',
+				fontFamily: 'Nunito',
 			},
 			subtitle2: {
-				fontFamily: 'Montserrat',
+				fontFamily: 'Nunito',
 			},
 		},
 	})
