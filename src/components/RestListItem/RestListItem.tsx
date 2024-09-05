@@ -57,7 +57,7 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 			clearErrors(['key', 'value'])
 		}, 3000)
 		return () => {
-			clearInterval(resetErrorTimer)
+			clearTimeout(resetErrorTimer)
 		}
 	}, [clearErrors, errors.key, errors.value])
 

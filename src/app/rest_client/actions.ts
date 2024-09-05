@@ -1,43 +1,50 @@
+'use server'
+
+import { paramsToString } from '@/utils'
+
 export interface IFetchData {
 	HTTPMethod: string
 	RequestUrl: string
-}
-interface IFetchDataResponse {
-	status: number
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	data: any
-	error?: string | unknown
 }
 
 export const fetchData = async ({
 	HTTPMethod,
 	RequestUrl,
-}: IFetchData): Promise<IFetchDataResponse> => {
+}: IFetchData): Promise<string> => {
 	try {
 		const response = await fetch(RequestUrl, {
 			method: HTTPMethod,
 		})
 
-		const data = await response.json()
+		const data = await response.text()
 
-		return {
-			status: response.status,
-			data: response.ok ? data : null,
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-			error: response.ok ? undefined : data?.message || 'Error fetching data', // сообщение об ошибке
-		}
+		const encodedData = btoa(data)
+		const returnedValue = paramsToString([
+			{ status: response.status },
+			{ statusText: response.statusText },
+			{ data: encodedData },
+		])
+		return returnedValue
 	} catch (error: unknown) {
 		if (error instanceof Error) {
-			return {
-				status: 500,
-				data: null,
-				error: error.message || 'Unknown error',
-			}
+			const returnedValue = paramsToString([
+				{ status: 500 },
+				{
+					statusText: '"HTTP Error 500" or "Internal Server Error"',
+				},
+				{ error: error.message },
+			])
+
+			return returnedValue
 		}
-		return {
-			status: 500,
-			data: null,
-			error,
-		}
+		const returnedValue = paramsToString([
+			{ status: 500 },
+			{
+				statusText: '"HTTP Error 500" or "Internal Server Error"',
+			},
+			{ error: 'I don`t know what happened here' },
+		])
+
+		return returnedValue
 	}
 }

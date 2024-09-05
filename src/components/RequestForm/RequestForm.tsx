@@ -1,11 +1,6 @@
 'use client'
 
-import {
-	restClientSelector,
-	setUrl,
-	useAppDispatch,
-	useAppSelector,
-} from '@/lib'
+import { setUrl, useAppDispatch } from '@/lib'
 
 import { HTTPMethods, restFormSchema } from '@/utils'
 
@@ -26,13 +21,13 @@ export interface Inputs {
 }
 
 export const RequestForm = () => {
+	const router = useRouter()
 	const [isLoading, setIsLoading] = useState(false)
 
-	const router = useRouter()
 	const {
 		register,
 		handleSubmit,
-		setValue,
+		// setValue,
 		watch,
 		clearErrors,
 		formState: { errors },
@@ -45,7 +40,7 @@ export const RequestForm = () => {
 		resolver: yupResolver(restFormSchema()),
 	})
 
-	const { url } = useAppSelector(restClientSelector)
+	// const { url } = useAppSelector(restClientSelector)
 	const dispatch = useAppDispatch()
 	const RequestUrlValue = watch('RequestUrl')
 	const HTTPMethod = watch('HTTPMethod')
@@ -54,20 +49,20 @@ export const RequestForm = () => {
 		dispatch(setUrl(RequestUrlValue))
 	}, [RequestUrlValue, dispatch])
 
-	useEffect(() => {
-		setValue('RequestUrl', url)
-	}, [url, dispatch, setValue])
+	// useEffect(() => {
+	// 	setValue('RequestUrl', url)
+	// }, [url, dispatch, setValue])
 
 	const onSubmit = async () => {
-		setIsLoading(!isLoading)
-		const responseData = await fetchData({
+		setIsLoading(true)
+		const resp = await fetchData({
 			HTTPMethod: HTTPMethod,
 			RequestUrl: RequestUrlValue,
 		})
-		setIsLoading(!isLoading)
 
-		const encodedData = encodeURIComponent(JSON.stringify(responseData))
-		router.push(`/rest_client/${HTTPMethod}?data=${encodedData}`)
+		setIsLoading(false)
+
+		router.push(`/rest_client/${HTTPMethod}?${resp}`)
 	}
 
 	useEffect(() => {
@@ -75,7 +70,7 @@ export const RequestForm = () => {
 			clearErrors(['RequestUrl'])
 		}, 3000)
 		return () => {
-			clearInterval(resetErrorTimer)
+			clearTimeout(resetErrorTimer)
 		}
 	}, [clearErrors, errors.RequestUrl])
 
