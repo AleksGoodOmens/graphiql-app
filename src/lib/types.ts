@@ -23,7 +23,6 @@ export interface IRestClientInitialState {
 	baseUrl: string
 	isLoading: boolean
 	isError: boolean
-	response: IRestClientResponse
 	newParams: IKeyValueID[]
 
 	headers: IKeyValueID[]

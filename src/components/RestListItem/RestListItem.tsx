@@ -1,7 +1,7 @@
 'use client'
 import { Button, Grid, TextField, Typography } from '@mui/material'
 
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { restParamsFormSchema } from '@/utils'
 import {
@@ -36,11 +36,11 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 		resolver: yupResolver(restParamsFormSchema()),
 	})
 
-	const onSubmit = () => {
+	const onSubmit: SubmitHandler<IKeyValue> = (data) => {
 		if (instance === 'Header') {
-			dispatch(updateHeader(pair))
+			dispatch(updateHeader({ ...data, id: pair.id }))
 		} else if (instance === 'Param') {
-			dispatch(updateParam(pair))
+			dispatch(updateParam({ ...data, id: pair.id }))
 		}
 	}
 

@@ -1,8 +1,13 @@
 'use client'
 
-import { setUrl, useAppDispatch } from '@/lib'
+import {
+	restClientSelector,
+	setUrl,
+	useAppDispatch,
+	useAppSelector,
+} from '@/lib'
 
-import { HTTPMethods, restFormSchema } from '@/utils'
+import { headersArrayToHeadersObj, HTTPMethods, restFormSchema } from '@/utils'
 
 import { Button, MenuItem, Select, TextField, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
@@ -23,11 +28,12 @@ export interface Inputs {
 export const RequestForm = () => {
 	const router = useRouter()
 	const [isLoading, setIsLoading] = useState(false)
+	const { url, headers } = useAppSelector(restClientSelector)
 
 	const {
 		register,
 		handleSubmit,
-		// setValue,
+		setValue,
 		watch,
 		clearErrors,
 		formState: { errors },
@@ -35,12 +41,11 @@ export const RequestForm = () => {
 		mode: 'onChange',
 		defaultValues: {
 			HTTPMethod: 'GET',
-			RequestUrl: '',
+			RequestUrl: url,
 		},
 		resolver: yupResolver(restFormSchema()),
 	})
 
-	// const { url } = useAppSelector(restClientSelector)
 	const dispatch = useAppDispatch()
 	const RequestUrlValue = watch('RequestUrl')
 	const HTTPMethod = watch('HTTPMethod')
@@ -49,15 +54,21 @@ export const RequestForm = () => {
 		dispatch(setUrl(RequestUrlValue))
 	}, [RequestUrlValue, dispatch])
 
-	// useEffect(() => {
-	// 	setValue('RequestUrl', url)
-	// }, [url, dispatch, setValue])
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setValue('RequestUrl', url)
+		}, 1000)
+		return () => clearTimeout(timer)
+	}, [url, setValue])
 
 	const onSubmit = async () => {
 		setIsLoading(true)
+
 		const resp = await fetchData({
 			HTTPMethod: HTTPMethod,
 			RequestUrl: RequestUrlValue,
+			headers: headersArrayToHeadersObj(headers),
+			body: JSON.stringify({}),
 		})
 
 		setIsLoading(false)

@@ -1,20 +1,44 @@
 'use server'
 
+import { objectWithKeys } from '@/lib'
 import { paramsToString } from '@/utils'
 
 export interface IFetchData {
 	HTTPMethod: string
 	RequestUrl: string
+	body: string
+	headers: objectWithKeys
 }
+
+const methodWithoutBody = ['POST', 'PUT', 'PATCH', 'DELETE']
 
 export const fetchData = async ({
 	HTTPMethod,
 	RequestUrl,
+	headers,
+	body,
 }: IFetchData): Promise<string> => {
-	try {
-		const response = await fetch(RequestUrl, {
+	const configureOptions = () => {
+		console.log(!methodWithoutBody.includes(HTTPMethod))
+		if (methodWithoutBody.includes(HTTPMethod)) {
+			return {
+				method: HTTPMethod,
+				headers: headers as HeadersInit,
+				body: body,
+			}
+		}
+		return {
 			method: HTTPMethod,
-		})
+			headers: headers as HeadersInit,
+		}
+	}
+
+	const options = configureOptions()
+
+	console.log(options)
+
+	try {
+		const response = await fetch(RequestUrl, options)
 
 		const data = await response.text()
 

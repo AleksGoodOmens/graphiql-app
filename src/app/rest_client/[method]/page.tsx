@@ -4,7 +4,7 @@ import { Box, Grid, List, ListItem, Typography } from '@mui/material'
 export interface JsonObject {
 	[key: string]: string
 }
-export default function Request({
+export default function ResponsePage({
 	searchParams,
 }: {
 	searchParams: { status: number; statusText: string; data: string }

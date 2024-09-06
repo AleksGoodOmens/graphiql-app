@@ -8,7 +8,13 @@ import { addHeader, addParam, IKeyValue, useAppDispatch } from '@/lib'
 import { Save } from '@mui/icons-material'
 import { useEffect } from 'react'
 
-export const AddForm = ({ title }: { title: string }) => {
+export const AddForm = ({
+	title,
+	disabled,
+}: {
+	title: string
+	disabled?: boolean
+}) => {
 	const dispatch = useAppDispatch()
 	const {
 		register,
@@ -90,6 +96,7 @@ export const AddForm = ({ title }: { title: string }) => {
 					type='submit'
 					variant='contained'
 					color='success'
+					disabled={disabled}
 				>
 					<Save />
 				</Button>

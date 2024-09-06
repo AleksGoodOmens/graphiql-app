@@ -4,20 +4,24 @@ import { restClientSelector, useAppSelector } from '@/lib'
 import { Grid } from '@mui/material'
 import { JsonEditor } from './JsonEditor'
 export const RequestEditor = () => {
-	const { newParams, headers } = useAppSelector(restClientSelector)
+	const { newParams, headers, baseUrl } = useAppSelector(restClientSelector)
 
 	return (
 		<section>
 			<Grid
 				container
 				columns={2}
+				sx={{ justifyContent: 'space-between' }}
 			>
 				<section>
-					<AddForm title='Params' />
+					<AddForm
+						title='Params'
+						disabled={!baseUrl}
+					/>
 					{newParams.map((p) => {
 						return (
 							<RestListItem
-								key={p.id}
+								key={p.key + p.value}
 								pair={p}
 								instance='Param'
 							/>
@@ -29,7 +33,7 @@ export const RequestEditor = () => {
 					{headers.map((p) => {
 						return (
 							<RestListItem
-								key={p.id}
+								key={p.key + p.value}
 								pair={p}
 								instance='Header'
 							/>
