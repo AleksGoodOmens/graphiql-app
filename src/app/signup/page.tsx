@@ -2,7 +2,7 @@
 
 import Home from '../page'
 
-import { SyntheticEvent, useState } from 'react'
+import { SyntheticEvent, useEffect, useState } from 'react'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -11,18 +11,30 @@ import { formSchema, MyForm } from '@/utils'
 import { useRouter } from 'next/navigation'
 
 import { auth } from '@/firebase/config'
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
+import {
+	useAuthState,
+	useCreateUserWithEmailAndPassword,
+} from 'react-firebase-hooks/auth'
 
 import { Snackbar } from '@mui/material'
 import { Form } from '@/components'
+import Loading from '../loading'
 
 export default function SingUp() {
+	const [user, loading] = useAuthState(auth)
 	const [createUserWithEmailAndPassword] =
 		useCreateUserWithEmailAndPassword(auth)
 	const [error, setError] = useState<string | null>(null)
 	const [open, setOpen] = useState(false)
 
 	const router = useRouter()
+
+	useEffect(() => {
+		if (user) {
+			router.push('/')
+		}
+	}, [user, router])
+
 	const {
 		handleSubmit,
 		register,
@@ -52,6 +64,10 @@ export default function SingUp() {
 		reason === 'timeout'
 		setOpen(false)
 		setError(null)
+	}
+
+	if (loading) {
+		return <Loading />
 	}
 
 	return (

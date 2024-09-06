@@ -5,12 +5,25 @@ import Home from '../page'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { MyForm } from '@/utils/types'
 import { useRouter } from 'next/navigation'
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
+import {
+	useAuthState,
+	useSignInWithEmailAndPassword,
+} from 'react-firebase-hooks/auth'
 import { auth } from '@/firebase/config'
+import { useEffect } from 'react'
+import Loading from '../loading'
 
 export default function SingIn() {
+	const [user, loading] = useAuthState(auth)
 	const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth)
 	const router = useRouter()
+
+	useEffect(() => {
+		if (user) {
+			router.push('/')
+		}
+	}, [user, router])
+
 	const {
 		handleSubmit,
 		register,
@@ -27,6 +40,10 @@ export default function SingIn() {
 		} catch (err) {
 			console.error(err)
 		}
+	}
+
+	if (loading) {
+		return <Loading />
 	}
 
 	return (
