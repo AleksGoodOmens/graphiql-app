@@ -1,18 +1,10 @@
-'use client'
+import type { Metadata } from 'next'
 
-import { auth } from '@/firebase/config'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import Loading from '../loading'
+export const metadata: Metadata = {
+	title: 'CodeADE - Rest client',
+	description: 'The page with rest client form',
+}
 
 export default function RestClientPage() {
-	const [user, loading] = useAuthState(auth)
-	const router = useRouter()
-
-	useEffect(() => {
-		if (!user) router.replace('/signup')
-	}, [user])
-
-	return loading ? <Loading /> : <></>
+	return <></>
 }
