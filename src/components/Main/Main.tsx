@@ -8,22 +8,20 @@ import { ReactNode } from 'react'
 import { Button } from '@mui/material'
 import { AccountCircle, Login } from '@mui/icons-material'
 import { useRouter } from 'next/navigation'
-import { Loader } from '../Loader/loader'
+import Loading from '@/app/loading'
 
-export function Main({ children }: { children: ReactNode }) {
+export default function Main({ children }: { children: ReactNode }) {
 	const [user, loading] = useAuthState(auth)
 	const router = useRouter()
 
-	if (loading) {
-		return <Loader />
-	}
-
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<main className={styles.main}>
 			<h1>CodeADE API Explorer</h1>
 			{user ? (
 				<div className={styles['main-wrapper']}>
-					<h2>Welcome Back, {user.email}!</h2>
+					<h2>Welcome Back, {user?.email}!</h2>
 					<div className={styles['main-links']}>
 						<Button
 							onClick={() => router.push('/rest_client')}

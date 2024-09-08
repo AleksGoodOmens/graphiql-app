@@ -2,27 +2,27 @@
 
 import Home from '../page'
 
-import { SyntheticEvent, useState } from 'react'
-
+import { SyntheticEvent, useEffect, useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { formSchema, MyForm } from '@/utils'
-
 import { useRouter } from 'next/navigation'
-
-import { auth } from '@/firebase/config'
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth'
-
+import { auth, registerWithEmailAndPassword } from '@/firebase/config'
 import { Snackbar } from '@mui/material'
 import { Form } from '@/components'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import Loading from '../loading'
 
 export default function SingUp() {
-	const [createUserWithEmailAndPassword] =
-		useCreateUserWithEmailAndPassword(auth)
 	const [error, setError] = useState<string | null>(null)
 	const [open, setOpen] = useState(false)
-
+	const [user, loading] = useAuthState(auth)
 	const router = useRouter()
+
+	useEffect(() => {
+		if (user) router.replace('/')
+	}, [user])
+
 	const {
 		handleSubmit,
 		register,
@@ -32,16 +32,17 @@ export default function SingUp() {
 	const submit: SubmitHandler<MyForm> = async (data) => {
 		const isValid = await formSchema.isValid(data)
 		const { email, password } = data
+		const name = email
 
 		if (isValid) {
-			try {
-				const result = await createUserWithEmailAndPassword(email, password)
-				result
-					? router.push('/')
-					: (setError('Email already exists'), setOpen(true))
-			} catch (err) {
-				console.error(err)
-			}
+			const result = await registerWithEmailAndPassword({
+				name,
+				email,
+				password,
+			})
+			result
+				? router.push('/')
+				: (setError('Email already exists'), setOpen(true))
 		}
 	}
 
@@ -54,7 +55,9 @@ export default function SingUp() {
 		setError(null)
 	}
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<Home>
 			<Form
 				register={register}
