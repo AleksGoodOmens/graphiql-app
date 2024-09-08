@@ -8,6 +8,8 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '@/firebase/config'
 import { useRouter } from 'next/navigation'
 import Loading from '../loading'
+import checkTokenExpiration from '@/utils/helpers/checkTokenExpiration'
+import { signOut } from 'firebase/auth'
 
 export default function RootLayout({
 	children,
@@ -17,9 +19,21 @@ export default function RootLayout({
 	const [user, loading] = useAuthState(auth)
 	const router = useRouter()
 
+	if (user) {
+		user.getIdTokenResult().then((idTokenResult) => {
+			const expirationDate = idTokenResult.expirationTime
+			const expired = checkTokenExpiration(expirationDate)
+			if (expired) {
+				signOut(auth)
+				router.push('/')
+			}
+		})
+	}
+
 	useEffect(() => {
 		if (!user) router.replace('/signup')
 	}, [user])
+
 	return loading ? (
 		<Loading />
 	) : (

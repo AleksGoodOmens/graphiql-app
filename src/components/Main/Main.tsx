@@ -9,10 +9,23 @@ import { Button } from '@mui/material'
 import { AccountCircle, Login } from '@mui/icons-material'
 import { useRouter } from 'next/navigation'
 import Loading from '@/app/loading'
+import checkTokenExpiration from '@/utils/helpers/checkTokenExpiration'
+import { signOut } from 'firebase/auth'
 
 export default function Main({ children }: { children: ReactNode }) {
 	const [user, loading] = useAuthState(auth)
 	const router = useRouter()
+
+	if (user) {
+		user.getIdTokenResult().then((idTokenResult) => {
+			const expirationDate = idTokenResult.expirationTime
+			const expired = checkTokenExpiration(expirationDate)
+			if (expired) {
+				signOut(auth)
+				router.push('/')
+			}
+		})
+	}
 
 	return loading ? (
 		<Loading />
