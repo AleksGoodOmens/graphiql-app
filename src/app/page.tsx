@@ -1,6 +1,13 @@
+'use client'
+
 import Main from '@/components/Main/Main'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 export default function Home({ children }: { children: ReactNode }) {
-	return <Main>{children}</Main>
+	const [isClient, setIsClient] = useState(false)
+
+	useEffect(() => {
+		setIsClient(true)
+	}, [])
+	return isClient && <Main>{children}</Main>
 }
