@@ -40,9 +40,9 @@ export const fetchData = async ({
 	try {
 		const response = await fetch(RequestUrl, options)
 
-		const data = await response.text()
+		const data = await response.json()
 
-		const encodedData = btoa(data)
+		const encodedData = btoa(encodeURIComponent(JSON.stringify(data)))
 		const returnedValue = paramsToString([
 			{ status: response.status },
 			{ statusText: response.statusText },
