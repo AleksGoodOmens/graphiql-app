@@ -1,41 +1,57 @@
 'use client'
-import { restClientSelector, useAppSelector } from '@/lib'
-import { Box, List, ListItem, Typography } from '@mui/material'
+import { Box, Grid, List, ListItem, Typography } from '@mui/material'
+import { Editor } from '../Editor/Editor'
 
-export const RestResponseBody = () => {
-	const { response } = useAppSelector(restClientSelector)
+export interface IRestResponseBody {
+	status: number
+	statusText: string
+	data: string
+}
 
-	const { body, code, message, statusCode } = response
+export const RestResponseBody = ({
+	status,
+	statusText,
+	data,
+}: IRestResponseBody) => {
 	return (
 		<Box mt={4}>
 			<Typography
 				textAlign={'center'}
 				variant='h2'
 				component={'h2'}
+			></Typography>
+			<Grid
+				container
+				sx={{ placeContent: 'center', gap: 2 }}
 			>
-				Response
-			</Typography>
-			<Box>
-				<Typography
-					variant='h3'
-					component={'h3'}
-				>
-					Status
-				</Typography>
-				<List>
-					<ListItem>code: {code}</ListItem>
-					<ListItem>statusCode: {statusCode}</ListItem>
-					<ListItem>message: {message}</ListItem>
-				</List>
-			</Box>
-			<Box>
-				<Typography
-					variant='h3'
-					component={'h3'}
-				>
-					{body}
-				</Typography>
-			</Box>
+				<Box>
+					<Typography
+						variant='h4'
+						component={'h3'}
+					>
+						Status
+					</Typography>
+					<List>
+						<ListItem
+							sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}
+						>
+							Status Code: <span>{status}</span>
+						</ListItem>
+						<ListItem
+							sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}
+						>
+							Status Text: <span>{statusText}</span>
+						</ListItem>
+					</List>
+				</Box>
+				<Box>
+					<Typography
+						variant='h4'
+						component={'h3'}
+					></Typography>
+					<Editor value={data} />
+				</Box>
+			</Grid>
 		</Box>
 	)
 }

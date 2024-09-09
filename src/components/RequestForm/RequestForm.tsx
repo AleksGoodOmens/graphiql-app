@@ -7,7 +7,7 @@ import {
 	useAppSelector,
 } from '@/lib'
 
-import { headersArrayToHeadersObj, HTTPMethods, restFormSchema } from '@/utils'
+import { HTTPMethods, restFormSchema } from '@/utils'
 
 import { Button, MenuItem, Select, TextField, Typography } from '@mui/material'
 import Grid from '@mui/material/Unstable_Grid2'
@@ -16,8 +16,7 @@ import ScheduleSendIcon from '@mui/icons-material/ScheduleSend'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { fetchData } from '@/app/rest_client/actions'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 export interface Inputs {
@@ -27,7 +26,6 @@ export interface Inputs {
 
 export const RequestForm = () => {
 	const router = useRouter()
-	const [isLoading, setIsLoading] = useState(false)
 	const { url, headers } = useAppSelector(restClientSelector)
 
 	const {
@@ -61,19 +59,18 @@ export const RequestForm = () => {
 		return () => clearTimeout(timer)
 	}, [url, setValue])
 
-	const onSubmit = async () => {
-		setIsLoading(true)
+	const onSubmit = () => {
+		const encodedURL = encodeURIComponent(btoa(RequestUrlValue))
 
-		const resp = await fetchData({
-			HTTPMethod: HTTPMethod,
-			RequestUrl: RequestUrlValue,
-			headers: headersArrayToHeadersObj(headers),
-			body: JSON.stringify({}),
+		console.log(encodedURL)
+
+		const newUrl = new URL(`http://rest_client/${HTTPMethod}/${encodedURL}`)
+
+		headers.forEach((h) => {
+			newUrl.searchParams.append(h.key, h.value)
 		})
 
-		setIsLoading(false)
-
-		router.push(`/rest_client/${HTTPMethod}?${resp}`)
+		router.push(`/rest_client${newUrl.pathname}${newUrl.search}`)
 	}
 
 	useEffect(() => {
@@ -137,13 +134,12 @@ export const RequestForm = () => {
 			<Grid xs={2}>
 				<Button
 					variant='contained'
-					disabled={isLoading}
 					endIcon={<ScheduleSendIcon />}
 					type='submit'
 					size='large'
 					color='info'
 				>
-					{!isLoading ? 'Send' : 'Sending...'}
+					Send
 				</Button>
 			</Grid>
 		</Grid>

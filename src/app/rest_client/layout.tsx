@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 	description: 'The page with rest client form',
 }
 
-export default function RootLayout({
+export default function RestLayout({
 	children,
 }: Readonly<{
 	children: ReactNode

@@ -11,7 +11,6 @@ interface IEditor {
 	value: string
 }
 function Editor({ readOnly = false, value }: IEditor) {
-	const parsedValue = atob(value)
 	return (
 		<AceEditor
 			width='500px'
@@ -26,8 +25,9 @@ function Editor({ readOnly = false, value }: IEditor) {
 			showPrintMargin={true}
 			showGutter={true}
 			highlightActiveLine={true}
-			value={parsedValue}
+			value={value}
 			setOptions={{
+				useWorker: false,
 				enableBasicAutocompletion: true,
 				enableLiveAutocompletion: true,
 				enableSnippets: false,
