@@ -1,5 +1,10 @@
 import { initializeApp, getApps, getApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
+import {
+	createUserWithEmailAndPassword,
+	getAuth,
+	signInWithEmailAndPassword,
+} from 'firebase/auth'
+import { addDoc, collection, getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
 	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY as string,
@@ -13,5 +18,46 @@ const firebaseConfig = {
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp()
 const auth = getAuth(app)
+const db = getFirestore(app)
 
-export { app, auth }
+const logInWithEmailAndPassword = async ({
+	email,
+	password,
+}: {
+	email: string
+	password: string
+}) => {
+	try {
+		const res = await signInWithEmailAndPassword(auth, email, password)
+		const user = res.user
+		return user
+	} catch (err) {
+		console.error(err)
+	}
+}
+
+const registerWithEmailAndPassword = async ({
+	name,
+	email,
+	password,
+}: {
+	name: string
+	email: string
+	password: string
+}) => {
+	try {
+		const res = await createUserWithEmailAndPassword(auth, email, password)
+		const user = res.user
+		await addDoc(collection(db, 'users'), {
+			uid: user.uid,
+			name,
+			authProvider: 'local',
+			email,
+		})
+		return user
+	} catch (err) {
+		console.error(err)
+	}
+}
+
+export { auth, logInWithEmailAndPassword, registerWithEmailAndPassword }

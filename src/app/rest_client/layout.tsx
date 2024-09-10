@@ -1,20 +1,42 @@
+'use client'
+
 import { RequestForm } from '@/components'
 import { Container, Typography } from '@mui/material'
-import type { Metadata } from 'next'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { RequestEditor } from './RequestEditor'
-
-export const metadata: Metadata = {
-	title: 'CodeADE - Rest client',
-	description: 'The page with rest client form',
-}
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '@/firebase/config'
+import { useRouter } from 'next/navigation'
+import Loading from '../loading'
+import checkTokenExpiration from '@/utils/helpers/checkTokenExpiration'
+import { signOut } from 'firebase/auth'
 
 export default function RestLayout({
 	children,
 }: Readonly<{
 	children: ReactNode
 }>) {
-	return (
+	const [user, loading] = useAuthState(auth)
+	const router = useRouter()
+
+	if (user) {
+		user.getIdTokenResult().then((idTokenResult) => {
+			const expirationDate = idTokenResult.expirationTime
+			const expired = checkTokenExpiration(expirationDate)
+			if (expired) {
+				signOut(auth)
+				router.push('/')
+			}
+		})
+	}
+
+	useEffect(() => {
+		if (!user) router.replace('/signup')
+	}, [user])
+
+	return loading ? (
+		<Loading />
+	) : (
 		<Container
 			component={'main'}
 			maxWidth={'xl'}
