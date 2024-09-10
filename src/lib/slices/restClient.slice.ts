@@ -5,11 +5,12 @@ import { IKeyValue, IKeyValueID, IRestClientInitialState } from '../types'
 const initialState: IRestClientInitialState = {
 	url: '',
 	baseUrl: '',
-	newParams: [],
+	params: [],
 	headers: [
 		{ key: 'Content-Type', value: 'application/json', id: 0 },
 		{ key: 'Accept', value: 'application/json', id: 1 },
 	],
+	body: '',
 	isLoading: false,
 	isError: false,
 }
@@ -30,7 +31,7 @@ const restClientSlice = createSlice({
 				)
 
 				state.baseUrl = `${url.protocol}//${url.host}${url.pathname}`
-				state.newParams = params
+				state.params = params
 
 				const paramsString = createUrlSearchParams(params)
 				state.url = state.baseUrl + (paramsString ? `?${paramsString}` : '')
@@ -44,26 +45,26 @@ const restClientSlice = createSlice({
 			state: IRestClientInitialState,
 			{ payload }: PayloadAction<IKeyValue>
 		) {
-			state.newParams.push({
+			state.params.push({
 				...payload,
-				id: state.newParams.length,
+				id: state.params.length,
 			})
 
-			const paramsString = createUrlSearchParams(state.newParams)
+			const paramsString = createUrlSearchParams(state.params)
 
 			state.url =
 				state.baseUrl + (paramsString.length ? `?${paramsString}` : '')
 		},
 
 		delParam(state, { payload }: PayloadAction<number>) {
-			const updatedParams = state.newParams.filter((p) => p.id !== payload)
+			const updatedParams = state.params.filter((p) => p.id !== payload)
 
-			state.newParams = updatedParams
+			state.params = updatedParams
 			const paramsString = createUrlSearchParams(updatedParams)
 			state.url = state.baseUrl + (paramsString ? `?${paramsString}` : '')
 		},
 		updateParam(state, { payload }: PayloadAction<IKeyValueID>) {
-			const updatedParams = state.newParams.map((p, i) => {
+			const updatedParams = state.params.map((p, i) => {
 				if (i === payload.id) {
 					p.key = payload.key
 					p.value = payload.value
@@ -71,7 +72,7 @@ const restClientSlice = createSlice({
 				return p
 			})
 
-			state.newParams = updatedParams
+			state.params = updatedParams
 			const paramsString = createUrlSearchParams(updatedParams)
 			console.log(paramsString)
 			state.url = state.baseUrl + (paramsString ? `?${paramsString}` : '')

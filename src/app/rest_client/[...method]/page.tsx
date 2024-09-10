@@ -1,15 +1,43 @@
 import { Editor } from '@/components'
 import { Box, Grid, List, ListItem, Typography } from '@mui/material'
+import { fetchData } from './actions'
+import { objectWithKeys } from '@/lib'
 
-export interface JsonObject {
-	[key: string]: string
+interface IResponsePageParams {
+	params: {
+		method: string[]
+	}
+	searchParams: objectWithKeys
 }
-export default function ResponsePage({
+export default async function ResponsePage({
+	params,
 	searchParams,
-}: {
-	searchParams: { status: number; statusText: string; data: string }
-}) {
-	const { status, statusText, data } = searchParams
+}: IResponsePageParams) {
+	const getData = async () => {
+		'use server'
+		const method = params.method[0]
+		const decodedUrl = decodeURIComponent(atob(params.method[1]))
+
+		const fetchOptions = {
+			HTTPMethod: method,
+			RequestUrl: decodedUrl,
+			headers: searchParams,
+			body: '',
+		}
+
+		if (params.method[2]) {
+			console.log(params.method[2], 'page ------------------------')
+			const decodedBody = decodeURIComponent(atob(params.method[2]))
+			fetchOptions['body'] = decodedBody
+		}
+
+		console.log(fetchOptions)
+
+		return await fetchData(fetchOptions)
+	}
+
+	const data = await getData()
+
 	return (
 		<Box mt={4}>
 			<Typography
@@ -32,12 +60,12 @@ export default function ResponsePage({
 						<ListItem
 							sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}
 						>
-							Status Code: <span>{status}</span>
+							Status Code: <span>{data.code}</span>
 						</ListItem>
 						<ListItem
 							sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}
 						>
-							Status Text: <span>{statusText}</span>
+							Status Text: <span>{data.statusCode}</span>
 						</ListItem>
 					</List>
 				</Box>
@@ -46,7 +74,7 @@ export default function ResponsePage({
 						variant='h4'
 						component={'h3'}
 					></Typography>
-					<Editor value={data} />
+					<Editor value={data.body} />
 				</Box>
 			</Grid>
 		</Box>

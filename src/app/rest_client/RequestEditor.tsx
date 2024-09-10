@@ -4,7 +4,7 @@ import { restClientSelector, useAppSelector } from '@/lib'
 import { Grid } from '@mui/material'
 import { JsonEditor } from './JsonEditor'
 export const RequestEditor = () => {
-	const { newParams, headers, baseUrl } = useAppSelector(restClientSelector)
+	const { params, headers, baseUrl, body } = useAppSelector(restClientSelector)
 
 	return (
 		<section>
@@ -18,7 +18,7 @@ export const RequestEditor = () => {
 						title='Params'
 						disabled={!baseUrl}
 					/>
-					{newParams.map((p) => {
+					{params.map((p) => {
 						return (
 							<RestListItem
 								key={p.key + p.value}

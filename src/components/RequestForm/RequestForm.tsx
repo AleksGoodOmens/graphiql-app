@@ -26,7 +26,7 @@ export interface Inputs {
 
 export const RequestForm = () => {
 	const router = useRouter()
-	const { url, headers } = useAppSelector(restClientSelector)
+	const { url, headers, body } = useAppSelector(restClientSelector)
 
 	const {
 		register,
@@ -60,11 +60,12 @@ export const RequestForm = () => {
 	}, [url, setValue])
 
 	const onSubmit = () => {
-		const encodedURL = encodeURIComponent(btoa(RequestUrlValue))
+		const encodedURL = btoa(encodeURIComponent(RequestUrlValue))
+		const encodedBody = body ? btoa(encodeURIComponent(body)) : ''
 
-		console.log(encodedURL)
-
-		const newUrl = new URL(`http://rest_client/${HTTPMethod}/${encodedURL}`)
+		const newUrl = new URL(
+			`http://rest_client/${HTTPMethod}/${encodedURL}${encodedBody ? `/${encodedBody}` : ''}`
+		)
 
 		headers.forEach((h) => {
 			newUrl.searchParams.append(h.key, h.value)
