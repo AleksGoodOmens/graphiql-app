@@ -60,18 +60,16 @@ export const RequestForm = () => {
 	}, [url, setValue])
 
 	const onSubmit = () => {
-		const encodedURL = btoa(encodeURIComponent(RequestUrlValue))
+		const encodedURL = encodeURIComponent(btoa(RequestUrlValue))
 		const encodedBody = body ? btoa(encodeURIComponent(body)) : ''
 
-		const newUrl = new URL(
-			`http://rest_client/${HTTPMethod}/${encodedURL}${encodedBody ? `/${encodedBody}` : ''}`
-		)
+		const newUrl = new URL(`http://rest_client/${HTTPMethod}/${encodedURL}`)
 
 		headers.forEach((h) => {
 			newUrl.searchParams.append(h.key, h.value)
 		})
 
-		router.push(`/rest_client${newUrl.pathname}${newUrl.search}`)
+		router.push(`/rest_client/${newUrl.pathname}`)
 	}
 
 	useEffect(() => {

@@ -16,7 +16,7 @@ export default async function ResponsePage({
 	const getData = async () => {
 		'use server'
 		const method = params.method[0]
-		const decodedUrl = decodeURIComponent(atob(params.method[1]))
+		const decodedUrl = atob(decodeURIComponent(params.method[1]))
 
 		const fetchOptions = {
 			HTTPMethod: method,
