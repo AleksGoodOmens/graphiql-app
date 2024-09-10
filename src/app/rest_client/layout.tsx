@@ -32,7 +32,7 @@ export default function RestLayout({
 
 	useEffect(() => {
 		if (!user) router.replace('/signup')
-	}, [user])
+	}, [user, router])
 
 	return loading ? (
 		<Loading />

@@ -38,7 +38,7 @@ export function Footer() {
 					<Image
 						priority
 						width={100}
-						src={rsschoollogo}
+						src={rsschoollogo as string}
 						alt='Logo'
 					/>
 				</Link>

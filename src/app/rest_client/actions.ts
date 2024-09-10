@@ -40,7 +40,7 @@ export const fetchData = async ({
 	try {
 		const response = await fetch(RequestUrl, options)
 
-		const data = await response.json()
+		const data: unknown = await response.json()
 
 		const encodedData = btoa(encodeURIComponent(JSON.stringify(data)))
 		const returnedValue = paramsToString([
