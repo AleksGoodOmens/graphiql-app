@@ -63,7 +63,9 @@ export const RequestForm = () => {
 		const encodedURL = encodeURIComponent(btoa(RequestUrlValue))
 		const encodedBody = body ? encodeURIComponent(btoa(body)) : ''
 
-		const newUrl = new URL(`http://rest_client/${HTTPMethod}/${encodedURL}`)
+		const newUrl = new URL(
+			`http://rest_client/${HTTPMethod}/${encodedURL}/${encodedBody}`
+		)
 
 		headers.forEach((h) => {
 			newUrl.searchParams.append(h.key, h.value)
