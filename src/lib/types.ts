@@ -23,8 +23,14 @@ export interface IRestClientInitialState {
 	baseUrl: string
 	isLoading: boolean
 	isError: boolean
-	response: IRestClientResponse
-	newParams: IKeyValue[]
-
+	params: IKeyValueID[]
 	headers: IKeyValueID[]
+	body: string
+}
+
+export interface IFetchData {
+	HTTPMethod: string
+	RequestUrl: string
+	body: string
+	headers: objectWithKeys
 }

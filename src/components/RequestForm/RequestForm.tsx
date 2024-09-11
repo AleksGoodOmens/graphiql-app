@@ -1,7 +1,6 @@
 'use client'
 
 import {
-	IRestClientResponse,
 	restClientSelector,
 	setUrl,
 	useAppDispatch,
@@ -17,8 +16,7 @@ import ScheduleSendIcon from '@mui/icons-material/ScheduleSend'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { fetchData, IFetchData } from '@/app/rest_client/actions'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 export interface Inputs {
@@ -26,30 +24,26 @@ export interface Inputs {
 	RequestUrl: string
 }
 
-export interface IOnSubmitAction {
-	onSubmit: (d: IFetchData) => Promise<IRestClientResponse>
-}
-
 export const RequestForm = () => {
-	const [isLoading, setIsLoading] = useState(false)
-
 	const router = useRouter()
+	const { url, headers, body } = useAppSelector(restClientSelector)
+
 	const {
 		register,
 		handleSubmit,
 		setValue,
 		watch,
+		clearErrors,
 		formState: { errors },
 	} = useForm<Inputs>({
 		mode: 'onChange',
 		defaultValues: {
 			HTTPMethod: 'GET',
-			RequestUrl: '',
+			RequestUrl: url,
 		},
 		resolver: yupResolver(restFormSchema()),
 	})
 
-	const { url } = useAppSelector(restClientSelector)
 	const dispatch = useAppDispatch()
 	const RequestUrlValue = watch('RequestUrl')
 	const HTTPMethod = watch('HTTPMethod')
@@ -59,23 +53,35 @@ export const RequestForm = () => {
 	}, [RequestUrlValue, dispatch])
 
 	useEffect(() => {
-		setValue('RequestUrl', url)
-	}, [url, dispatch, setValue])
+		const timer = setTimeout(() => {
+			setValue('RequestUrl', url)
+		}, 300)
+		return () => clearTimeout(timer)
+	}, [url, setValue])
 
-	const onSubmit = async () => {
-		setIsLoading(!isLoading)
-		setIsLoading(!isLoading)
-		const responseData = await fetchData({
-			HTTPMethod: HTTPMethod,
-			RequestUrl: RequestUrlValue,
+	const onSubmit = () => {
+		const encodedURL = encodeURIComponent(btoa(RequestUrlValue))
+		const encodedBody = body ? encodeURIComponent(btoa(body)) : ''
+
+		const newUrl = new URL(
+			`http://rest_client/${HTTPMethod}/${encodedURL}/${encodedBody}`
+		)
+
+		headers.forEach((h) => {
+			newUrl.searchParams.append(h.key, h.value)
 		})
-		setIsLoading(!isLoading)
 
-		setIsLoading(!isLoading)
-
-		const encodedData = encodeURIComponent(JSON.stringify(responseData))
-		router.push(`/rest_client/${HTTPMethod}?data=${encodedData}`)
+		router.push(`/rest_client/${newUrl.pathname}${newUrl.search}`)
 	}
+
+	useEffect(() => {
+		const resetErrorTimer = setTimeout(() => {
+			clearErrors(['RequestUrl'])
+		}, 3000)
+		return () => {
+			clearTimeout(resetErrorTimer)
+		}
+	}, [clearErrors, errors.RequestUrl])
 
 	return (
 		<Grid
@@ -118,6 +124,8 @@ export const RequestForm = () => {
 				/>
 				<Typography
 					position={'absolute'}
+					variant='body2'
+					color={'error'}
 					left={0}
 					bottom={-32}
 				>
@@ -127,14 +135,12 @@ export const RequestForm = () => {
 			<Grid xs={2}>
 				<Button
 					variant='contained'
-					disabled={isLoading}
 					endIcon={<ScheduleSendIcon />}
 					type='submit'
 					size='large'
 					color='info'
 				>
-					{!isLoading ? 'Send' : 'Sending...'}
-					{!isLoading ? 'Send' : 'Sending...'}
+					Send
 				</Button>
 			</Grid>
 		</Grid>

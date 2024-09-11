@@ -21,7 +21,7 @@ export default function SingUp() {
 
 	useEffect(() => {
 		if (user) router.replace('/')
-	}, [user])
+	}, [user, router])
 
 	const {
 		handleSubmit,

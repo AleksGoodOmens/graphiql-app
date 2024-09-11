@@ -15,9 +15,7 @@
 	],
 	"plugins": ["@typescript-eslint", "react-hooks", "prettier"],
 	"rules": {
-		"@typescript-eslint/no-unsafe-assignment": 0,
 		"@typescript-eslint/no-floating-promises": 0,
-		"@typescript-eslint/no-misused-promises": 0,
-		"@typescript-eslint/no-unsafe-call": 0
+		"@typescript-eslint/no-misused-promises": 0
 	}
 }

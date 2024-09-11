@@ -19,7 +19,7 @@ export default function SingIn() {
 
 	useEffect(() => {
 		if (user) router.replace('/')
-	}, [user])
+	}, [user, router])
 
 	const {
 		handleSubmit,

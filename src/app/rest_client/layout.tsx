@@ -11,7 +11,7 @@ import Loading from '../loading'
 import checkTokenExpiration from '@/utils/helpers/checkTokenExpiration'
 import { signOut } from 'firebase/auth'
 
-export default function RootLayout({
+export default function RestLayout({
 	children,
 }: Readonly<{
 	children: ReactNode
@@ -32,7 +32,7 @@ export default function RootLayout({
 
 	useEffect(() => {
 		if (!user) router.replace('/signup')
-	}, [user])
+	}, [user, router])
 
 	return loading ? (
 		<Loading />
