@@ -100,6 +100,10 @@ const restClientSlice = createSlice({
 				return p
 			})
 		},
+
+		addBody(state, { payload }: PayloadAction<string>) {
+			state.body = payload
+		},
 	},
 })
 
@@ -111,6 +115,7 @@ export const {
 	addHeader,
 	delHeader,
 	updateHeader,
+	addBody,
 } = restClientSlice.actions
 
 export default restClientSlice.reducer

@@ -12,8 +12,9 @@ import { useContext } from 'react'
 interface IEditor {
 	readOnly?: boolean
 	value: string
+	onChange: (s: string) => void
 }
-function Editor({ readOnly = false, value }: IEditor) {
+function Editor({ readOnly = false, value, onChange }: IEditor) {
 	const { mode } = useContext(ThemeContext)
 
 	return (
@@ -30,6 +31,7 @@ function Editor({ readOnly = false, value }: IEditor) {
 			showPrintMargin={true}
 			showGutter={true}
 			highlightActiveLine={true}
+			onChange={onChange}
 			value={value}
 			setOptions={{
 				useWorker: false,

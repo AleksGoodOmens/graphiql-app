@@ -1,8 +1,31 @@
 'use client'
 import { Typography } from '@mui/material'
 import { Editor } from '@/components'
+import {
+	addBody,
+	restClientSelector,
+	useAppDispatch,
+	useAppSelector,
+} from '@/lib'
+import { useEffect, useState } from 'react'
 
 function JsonEditor() {
+	const dispatch = useAppDispatch()
+	const { body } = useAppSelector(restClientSelector)
+	const [value, setValue] = useState(body)
+
+	const onChange = (data: string) => {
+		setValue(data)
+	}
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			dispatch(addBody(value))
+		}, 100)
+
+		return () => clearTimeout(timer)
+	}, [value, dispatch])
+
 	return (
 		<div>
 			<Typography
@@ -11,7 +34,10 @@ function JsonEditor() {
 			>
 				Body Editor:
 			</Typography>
-			<Editor value='' />
+			<Editor
+				value={value}
+				onChange={onChange}
+			/>
 		</div>
 	)
 }
