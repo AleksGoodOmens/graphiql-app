@@ -12,16 +12,16 @@ import { useContext } from 'react'
 interface IEditor {
 	readOnly?: boolean
 	value: string
-	onChange: (s: string) => void
+	onChange?: (s: string) => void
 }
 function Editor({ readOnly = false, value, onChange }: IEditor) {
 	const { mode } = useContext(ThemeContext)
 
 	return (
 		<AceEditor
-			width='500px'
+			width='auto'
 			height='300px'
-			placeholder='Placeholder Text'
+			placeholder='Type request body'
 			mode='json'
 			theme={mode === 'light' ? 'github' : 'monokai'}
 			name='blah2'

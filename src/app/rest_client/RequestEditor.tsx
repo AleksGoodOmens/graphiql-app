@@ -4,7 +4,7 @@ import { restClientSelector, useAppSelector } from '@/lib'
 import { Grid } from '@mui/material'
 import { JsonEditor } from './JsonEditor'
 export const RequestEditor = () => {
-	const { params, headers, baseUrl, body } = useAppSelector(restClientSelector)
+	const { params, headers, baseUrl } = useAppSelector(restClientSelector)
 
 	return (
 		<section>

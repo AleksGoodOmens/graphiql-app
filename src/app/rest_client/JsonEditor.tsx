@@ -1,5 +1,5 @@
 'use client'
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { Editor } from '@/components'
 import {
 	addBody,
@@ -13,9 +13,21 @@ function JsonEditor() {
 	const dispatch = useAppDispatch()
 	const { body } = useAppSelector(restClientSelector)
 	const [value, setValue] = useState(body)
+	const [json, setJson] = useState(true)
 
 	const onChange = (data: string) => {
-		setValue(data)
+		toggleJsonString(data)
+	}
+
+	const toggleJsonString = (data: string) => {
+		try {
+			const json: unknown = JSON.parse(data)
+			setJson(true)
+			setValue(JSON.stringify(json))
+		} catch (error) {
+			setJson(false)
+			setValue(data)
+		}
 	}
 
 	useEffect(() => {
@@ -27,18 +39,28 @@ function JsonEditor() {
 	}, [value, dispatch])
 
 	return (
-		<div>
+		<Box sx={{ position: 'relative' }}>
 			<Typography
 				component='h2'
 				variant='h4'
 			>
 				Body Editor:
 			</Typography>
+			<Typography
+				variant='body1'
+				color='white'
+				fontWeight={700}
+				width={'fit-content'}
+				bgcolor={'warning.main'}
+				padding={1}
+				borderRadius={1}
+				marginBottom={2}
+			>{`This is ${json ? 'JSON' : 'string'}`}</Typography>
 			<Editor
 				value={value}
 				onChange={onChange}
 			/>
-		</div>
+		</Box>
 	)
 }
 
