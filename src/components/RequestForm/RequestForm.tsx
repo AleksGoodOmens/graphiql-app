@@ -55,13 +55,13 @@ export const RequestForm = () => {
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setValue('RequestUrl', url)
-		}, 1000)
+		}, 300)
 		return () => clearTimeout(timer)
 	}, [url, setValue])
 
 	const onSubmit = () => {
 		const encodedURL = encodeURIComponent(btoa(RequestUrlValue))
-		const encodedBody = body ? btoa(encodeURIComponent(body)) : ''
+		const encodedBody = body ? encodeURIComponent(btoa(body)) : ''
 
 		const newUrl = new URL(`http://rest_client/${HTTPMethod}/${encodedURL}`)
 
@@ -69,7 +69,7 @@ export const RequestForm = () => {
 			newUrl.searchParams.append(h.key, h.value)
 		})
 
-		router.push(`/rest_client/${newUrl.pathname}`)
+		router.push(`/rest_client/${newUrl.pathname}${newUrl.search}`)
 	}
 
 	useEffect(() => {
