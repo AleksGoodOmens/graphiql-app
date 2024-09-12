@@ -1,1 +1,9 @@
-{"body":"Редактор тела:","buttonJSON":"Это JSON-файл","buttonSEND":"отправлять","fillForm":"Пожалуйста, заполните форму выше","headers":"Заголовки:","params":"Параметры:","restHeading":"Страница «Остальные клиенты»"}
+{
+	"body": "Редактор body:",
+	"buttonJSON": "Это JSON-файл",
+	"buttonSEND": "Отправить",
+	"fillForm": "Пожалуйста, заполните форму выше",
+	"headers": "Заголовки",
+	"params": "Параметры",
+	"restHeading": "Страница «Rest Client»"
+}
