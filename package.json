@@ -10,7 +10,10 @@
 		"format": "prettier -c .",
 		"format:fix": "prettier -w .",
 		"prepare": "husky",
-		"precommit": "lint-staged"
+		"precommit": "lint-staged",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"coverage": "jest --collectCoverage"
 	},
 	"lint-staged": {
 		"*.{js,jsx,ts,tsx}": [
@@ -33,15 +36,18 @@
 		"next": "14.2.5",
 		"react": "^18",
 		"react-ace": "^12.0.0",
-		"react-dom": "^18"
+		"react-dom": "^18",
+		"ts-node": "^10.9.2"
 	},
 	"devDependencies": {
 		"@hookform/resolvers": "^3.9.0",
+		"@jest/globals": "^29.7.0",
 		"@reduxjs/toolkit": "^2.2.7",
 		"@testing-library/dom": "^10.4.0",
 		"@testing-library/jest-dom": "^6.5.0",
 		"@testing-library/react": "^16.0.1",
 		"@types/firebase": "^3.2.1",
+		"@types/jest": "^29.5.12",
 		"@types/node": "^20",
 		"@types/react": "^18",
 		"@types/react-dom": "^18",
