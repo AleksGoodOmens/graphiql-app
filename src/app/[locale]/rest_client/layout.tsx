@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import Loading from '../loading'
 import checkTokenExpiration from '@/utils/helpers/checkTokenExpiration'
 import { signOut } from 'firebase/auth'
+import { useTranslation } from 'react-i18next'
 
 export default function RestLayout({
 	children,
@@ -18,6 +19,7 @@ export default function RestLayout({
 }>) {
 	const [user, loading] = useAuthState(auth)
 	const router = useRouter()
+	const { t } = useTranslation()
 
 	if (user) {
 		user.getIdTokenResult().then((idTokenResult) => {
@@ -45,7 +47,7 @@ export default function RestLayout({
 				variant='h1'
 				component={'h1'}
 			>
-				Rest Client page
+				{t('rest:restHeading')}
 			</Typography>
 			<RequestForm />
 			<RequestEditor />

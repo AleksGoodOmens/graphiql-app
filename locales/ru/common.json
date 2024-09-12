@@ -1,1 +1,8 @@
-{"buttonMain":"На главную","buttonSignin":"Войти","buttonSignout":"Выход","buttonSignup":"Зарегистрироваться","buttonThemeDark":"темный","buttonThemeLight":"свет"}
+{
+	"buttonMain": "Главная",
+	"buttonSignin": "Войти",
+	"buttonSignout": "Выход",
+	"buttonSignup": "Зарегистрироваться",
+	"buttonThemeDark": "Темная",
+	"buttonThemeLight": "Светлая"
+}

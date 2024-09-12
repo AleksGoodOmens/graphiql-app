@@ -8,12 +8,14 @@ import {
 	useAppSelector,
 } from '@/lib'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 function JsonEditor() {
 	const dispatch = useAppDispatch()
 	const { body } = useAppSelector(restClientSelector)
 	const [value, setValue] = useState(body)
 	const [json, setJson] = useState(true)
+	const { t } = useTranslation()
 
 	const onChange = (data: string) => {
 		toggleJsonString(data)
@@ -44,7 +46,7 @@ function JsonEditor() {
 				component='h2'
 				variant='h4'
 			>
-				Body Editor:
+				{t('rest:body')}
 			</Typography>
 			<Typography
 				variant='body1'

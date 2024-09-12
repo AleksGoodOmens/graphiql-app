@@ -18,7 +18,7 @@ interface RootLayoutProps {
 	}
 }
 
-const i18nNamespaces = ['home', 'common', 'form']
+const i18nNamespaces = ['home', 'common', 'form', 'rest']
 
 export default async function RootLayout({
 	children,

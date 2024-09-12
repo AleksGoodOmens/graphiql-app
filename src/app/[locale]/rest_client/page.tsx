@@ -1,18 +1,16 @@
-import { Typography } from '@mui/material'
-import type { Metadata } from 'next'
+'use client'
 
-export const metadata: Metadata = {
-	title: 'rest - CodeAde',
-	description: 'The page with rest client form',
-}
+import { Typography } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 export default function RestClientPage() {
+	const { t } = useTranslation()
 	return (
 		<Typography
 			variant='body1'
 			sx={{ textAlign: 'center' }}
 		>
-			Please fill the from above
+			{t('rest:fillForm')}
 		</Typography>
 	)
 }
