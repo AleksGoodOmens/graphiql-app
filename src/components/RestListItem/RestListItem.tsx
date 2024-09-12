@@ -1,17 +1,20 @@
 'use client'
-import { Button, Grid, TextField } from '@mui/material'
+import { Button, Grid, TextField, Typography } from '@mui/material'
 
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { restParamsFormSchema } from '@/utils'
 import {
 	delHeader,
+	delParam,
 	IKeyValue,
 	IKeyValueID,
 	updateHeader,
+	updateParam,
 	useAppDispatch,
 } from '@/lib'
 import { DeleteOutlineOutlined, Save } from '@mui/icons-material'
+import { useEffect } from 'react'
 
 interface IFormListItemParams {
 	pair: IKeyValueID
@@ -23,6 +26,7 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 	const {
 		register,
 		handleSubmit,
+		clearErrors,
 		formState: { errors },
 	} = useForm<IKeyValue>({
 		defaultValues: {
@@ -32,11 +36,30 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 		resolver: yupResolver(restParamsFormSchema()),
 	})
 
-	const onSubmit = () => {
+	const onSubmit: SubmitHandler<IKeyValue> = (data) => {
 		if (instance === 'Header') {
-			dispatch(updateHeader(pair))
+			dispatch(updateHeader({ ...data, id: pair.id }))
+		} else if (instance === 'Param') {
+			dispatch(updateParam({ ...data, id: pair.id }))
 		}
 	}
+
+	const onDell = () => {
+		if (instance === 'Header') {
+			dispatch(delHeader(pair.id))
+		} else if (instance === 'Param') {
+			dispatch(delParam(pair.id))
+		}
+	}
+
+	useEffect(() => {
+		const resetErrorTimer = setTimeout(() => {
+			clearErrors(['key', 'value'])
+		}, 3000)
+		return () => {
+			clearTimeout(resetErrorTimer)
+		}
+	}, [clearErrors, errors.key, errors.value])
 
 	return (
 		<Grid
@@ -53,23 +76,33 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 					variant='outlined'
 					name='key'
 				/>
-				<p>{errors.key?.message || ''}</p>
+				<Typography
+					variant='body2'
+					color='error'
+				>
+					{errors.key?.message || ''}
+				</Typography>
 			</Grid>
 			<Grid>
 				<TextField
 					{...register('value')}
-					label='Header value'
+					label={`${instance} value`}
 					variant='outlined'
 					name='value'
 				/>
-				<p>{errors.value?.message || ''}</p>
+				<Typography
+					variant='body2'
+					color='error'
+				>
+					{errors.value?.message || ''}
+				</Typography>
 			</Grid>
 
 			<Button
 				type='button'
 				variant='contained'
 				color='warning'
-				onClick={() => dispatch(delHeader(pair.id))}
+				onClick={() => dispatch(onDell)}
 			>
 				<DeleteOutlineOutlined />
 			</Button>

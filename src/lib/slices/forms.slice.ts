@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState = {
 	form: {
@@ -11,7 +11,10 @@ const formSlice = createSlice({
 	name: 'form',
 	initialState,
 	reducers: {
-		submitForm(state, action) {
+		submitForm(
+			state,
+			action: PayloadAction<{ email: string; password: string }>
+		) {
 			state.form = action.payload
 		},
 	},

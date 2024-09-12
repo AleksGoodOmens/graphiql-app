@@ -33,7 +33,7 @@ export function Header() {
 					<Image
 						priority
 						width={50}
-						src={logo}
+						src={logo as string}
 						alt='Logo'
 					/>
 				</div>
