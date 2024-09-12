@@ -17,7 +17,7 @@ import ScheduleSendIcon from '@mui/icons-material/ScheduleSend'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { fetchData, IFetchData } from '@/app/rest_client/actions'
+import { fetchData, IFetchData } from '@/app/[locale]/rest_client/actions'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 

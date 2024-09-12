@@ -7,23 +7,19 @@ import { auth } from '@/firebase/config'
 import { signOut } from 'firebase/auth'
 import { AccountCircle, Login, Logout, Home } from '@mui/icons-material'
 import { Button } from '@mui/material'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
 import { ThemeContext } from '@/providers/ThemeContext/ThemeContext'
 import logo from '../../assets/logo.svg'
 import Image from 'next/image'
+import { useTranslation } from 'react-i18next'
+import LanguageChanger from '../LanguageChanger'
 
 export function Header() {
+	const { t } = useTranslation()
 	const [user] = useAuthState(auth)
 	const router = useRouter()
 	const { mode, toggleTheme } = useContext(ThemeContext)
-	const [buttonText, setButtonText] = useState('Русский')
-
-	const handleClick = () => {
-		setButtonText((prevText) =>
-			prevText === 'Русский' ? 'English' : 'Русский'
-		)
-	}
 
 	const handleLogOut = () => {
 		signOut(auth)
@@ -51,7 +47,7 @@ export function Header() {
 								color='primary'
 								size='small'
 							>
-								Sign Out
+								{t('common:buttonSignout')}
 							</Button>
 							<Button
 								onClick={() => router.push('/')}
@@ -60,7 +56,7 @@ export function Header() {
 								color='error'
 								size='small'
 							>
-								Main
+								{t('common:buttonMain')}
 							</Button>
 						</div>
 					) : (
@@ -72,7 +68,7 @@ export function Header() {
 								color='primary'
 								size='small'
 							>
-								Sign In
+								{t('common:buttonSignin')}
 							</Button>
 							<Button
 								variant='contained'
@@ -81,7 +77,7 @@ export function Header() {
 								color='error'
 								size='small'
 							>
-								Sign Up
+								{t('common:buttonSignup')}
 							</Button>
 						</div>
 					)}
@@ -92,16 +88,11 @@ export function Header() {
 							size='small'
 							color={mode === 'dark' ? 'success' : 'secondary'}
 						>
-							{mode === 'dark' ? 'light' : 'dark'}
+							{mode === 'dark'
+								? t('common:buttonThemeLight')
+								: t('common:buttonThemeDark')}
 						</Button>
-						<Button
-							variant='contained'
-							size='small'
-							color={mode === 'dark' ? 'success' : 'secondary'}
-							onClick={handleClick}
-						>
-							{buttonText}
-						</Button>
+						<LanguageChanger />
 					</div>
 				</div>
 			</div>

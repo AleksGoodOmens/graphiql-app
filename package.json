@@ -3,9 +3,9 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start",
+		"dev": "i18nexus pull && next dev",
+		"build": "i18nexus pull && next build",
+		"start": "i18nexus pull && next start",
 		"lint": "next lint",
 		"format": "prettier -c .",
 		"format:fix": "prettier -w .",
@@ -29,9 +29,13 @@
 		"@mui/icons-material": "^5.16.7",
 		"@mui/material": "^5.16.7",
 		"firebase": "^10.13.0",
+		"i18next": "^23.15.0",
+		"i18next-resources-to-backend": "^1.2.1",
 		"next": "14.2.5",
+		"next-i18n-router": "^5.5.1",
 		"react": "^18",
-		"react-dom": "^18"
+		"react-dom": "^18",
+		"react-i18next": "^15.0.1"
 	},
 	"devDependencies": {
 		"@hookform/resolvers": "^3.9.0",
@@ -49,6 +53,7 @@
 		"eslint-plugin-prettier": "^5.2.1",
 		"eslint-plugin-react-hooks": "^4.6.2",
 		"husky": "^9.1.5",
+		"i18nexus-cli": "^3.5.0",
 		"lint-staged": "^15.2.9",
 		"prettier": "^3.3.3",
 		"prettier-plugin-css-order": "^2.1.2",

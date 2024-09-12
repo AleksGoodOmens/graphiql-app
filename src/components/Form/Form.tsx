@@ -1,11 +1,15 @@
+'use client'
+
 import styles from './Form.module.css'
 
 import { Button, TextField } from '@mui/material'
 import { FormProps } from './Form.type'
 import { useContext } from 'react'
 import { ThemeContext } from '@/providers/ThemeContext/ThemeContext'
+import { useTranslation } from 'react-i18next'
 
 export function Form({ register, handleSubmit, errors }: FormProps) {
+	const { t } = useTranslation()
 	const { mode } = useContext(ThemeContext)
 	return (
 		<form
@@ -30,7 +34,7 @@ export function Form({ register, handleSubmit, errors }: FormProps) {
 					variant='contained'
 					color={mode === 'dark' ? 'success' : 'secondary'}
 				>
-					Submit
+					{t('form:buttonSubmit')}
 				</Button>
 			</div>
 		</form>
