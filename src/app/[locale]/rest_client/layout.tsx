@@ -7,7 +7,7 @@ import { RequestEditor } from './RequestEditor'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '@/firebase/config'
 import { useRouter } from 'next/navigation'
-import Loading from '../[locale]/loading'
+import Loading from '../loading'
 import checkTokenExpiration from '@/utils/helpers/checkTokenExpiration'
 import { signOut } from 'firebase/auth'
 
