@@ -13,7 +13,7 @@
 		"precommit": "lint-staged",
 		"test": "jest",
 		"test:watch": "jest --watch",
-		"coverage": "jest --collectCoverage"
+		"test:coverage": "jest --collectCoverage"
 	},
 	"lint-staged": {
 		"*.{js,jsx,ts,tsx}": [

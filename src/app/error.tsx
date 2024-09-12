@@ -1,6 +1,7 @@
 'use client'
 
-import { redirect } from 'next/navigation'
+import { Button } from '@mui/material'
+import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 export default function Error({
@@ -10,6 +11,7 @@ export default function Error({
 	error: Error & { digest?: string }
 	reset: () => void
 }) {
+	const router = useRouter()
 	useEffect(() => {
 		// Log the error to an error reporting service
 		console.error(error)
@@ -18,18 +20,19 @@ export default function Error({
 	return (
 		<div>
 			<h2>Something went wrong!</h2>
-			<button
+			<Button
+				variant='contained'
 				onClick={
 					// Attempt to recover by trying to re-render the segment
 
 					() => {
 						reset()
-						redirect('/rest_client')
+						router.push('/')
 					}
 				}
 			>
 				Try again
-			</button>
+			</Button>
 		</div>
 	)
 }

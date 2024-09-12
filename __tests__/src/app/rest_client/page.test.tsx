@@ -1,13 +1,13 @@
 import RestClientPage from '@/app/rest_client/page'
 import { render, screen } from '@testing-library/react'
 
-describe('Page', () => {
-	it('renders a heading', () => {
+describe('RestClientPage', () => {
+	it('renders a paragraph with "Please fill the from above"', () => {
 		render(<RestClientPage />)
 
 		const paragraph = screen.getByRole('paragraph')
 
 		expect(paragraph).toBeInTheDocument()
-		expect(paragraph).toHaveTextContent(/Please fill the from above/)
+		expect(paragraph).toHaveTextContent(/Please fill the from above/i)
 	})
 })
