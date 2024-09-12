@@ -38,6 +38,9 @@
 	"devDependencies": {
 		"@hookform/resolvers": "^3.9.0",
 		"@reduxjs/toolkit": "^2.2.7",
+		"@testing-library/dom": "^10.4.0",
+		"@testing-library/jest-dom": "^6.5.0",
+		"@testing-library/react": "^16.0.1",
 		"@types/firebase": "^3.2.1",
 		"@types/node": "^20",
 		"@types/react": "^18",
@@ -51,6 +54,8 @@
 		"eslint-plugin-prettier": "^5.2.1",
 		"eslint-plugin-react-hooks": "^4.6.2",
 		"husky": "^9.1.5",
+		"jest": "^29.7.0",
+		"jest-environment-jsdom": "^29.7.0",
 		"lint-staged": "^15.2.9",
 		"prettier": "^3.3.3",
 		"prettier-plugin-css-order": "^2.1.2",
