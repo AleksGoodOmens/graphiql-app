@@ -3,7 +3,7 @@
 	"parserOptions": {
 		"project": "./tsconfig.json",
 		"ecmaVersion": 2020,
-		"sourceType": "module",
+		"sourceType": "module"
 	},
 	"extends": [
 		"eslint:recommended",
@@ -12,20 +12,20 @@
 		"plugin:@typescript-eslint/recommended-requiring-type-checking",
 		"next/core-web-vitals",
 		"plugin:prettier/recommended",
-		"prettier",
+		"prettier"
 	],
 	"plugins": ["@typescript-eslint", "react-hooks", "prettier"],
 	"rules": {
 		"@typescript-eslint/no-floating-promises": 0,
-		"@typescript-eslint/no-misused-promises": 0,
+		"@typescript-eslint/no-misused-promises": 0
 	},
 	"overrides": [
 		{
 			"files": ["./__tests__/**/*"],
 			"env": {
-				"jest": true,
-			},
-		},
+				"jest": true
+			}
+		}
 	],
-	"ignorePatterns": "./coverage/*",
+	"ignorePatterns": "./coverage/*"
 }
