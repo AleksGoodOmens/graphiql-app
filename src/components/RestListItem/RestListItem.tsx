@@ -67,6 +67,7 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 			gap={2}
 			padding={2}
 			component={'form'}
+			role='formListItem'
 			onSubmit={handleSubmit(onSubmit)}
 		>
 			<Grid>
@@ -102,6 +103,7 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 				type='button'
 				variant='contained'
 				color='warning'
+				aria-label='del key/value'
 				onClick={() => dispatch(onDell)}
 			>
 				<DeleteOutlineOutlined />
@@ -111,6 +113,7 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 				type='submit'
 				variant='contained'
 				color='success'
+				aria-label='save key/value'
 			>
 				<Save />
 			</Button>
