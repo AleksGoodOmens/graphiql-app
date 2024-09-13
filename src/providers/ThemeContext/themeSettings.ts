@@ -1,12 +1,6 @@
 import { createTheme } from '@mui/material'
 import { paletteDark, paletteLight } from './palette'
 
-declare module '@mui/material/Button' {
-	interface ButtonPropsVariantOverrides {
-		request: true
-	}
-}
-
 export const themeSettings = (mode: 'light' | 'dark') => {
 	const palette = mode === 'light' ? paletteLight : paletteDark
 

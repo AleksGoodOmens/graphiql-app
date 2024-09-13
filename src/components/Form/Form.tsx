@@ -3,7 +3,7 @@ import styles from './Form.module.css'
 import { Button, TextField } from '@mui/material'
 import { FormProps } from './Form.type'
 import { useContext } from 'react'
-import { ThemeContext } from '@/providers/ThemeContext/ThemeContext'
+import { ThemeContext } from '@/providers/ThemeContext'
 
 export function Form({ register, handleSubmit, errors }: FormProps) {
 	const { mode } = useContext(ThemeContext)

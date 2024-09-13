@@ -1,14 +1,7 @@
-'use client'
 import { ThemeProvider, useMediaQuery } from '@mui/material'
-import { createContext, ReactNode, useState } from 'react'
-import { themeSettings } from '.'
-
-export const ThemeContext = createContext({
-	mode: 'dark',
-	toggleTheme: () => {
-		console.log('test')
-	},
-})
+import { ReactNode, useState } from 'react'
+import { ThemeContext } from '../ThemeContext'
+import { themeSettings } from '../ThemeContext/themeSettings'
 
 export const ThemeContextProvider = ({ children }: { children: ReactNode }) => {
 	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')

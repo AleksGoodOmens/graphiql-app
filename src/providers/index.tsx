@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 
 import { StoreProvider } from './StoreProvider/StoreProvider'
 import { CssBaseline } from '@mui/material'
-import { ThemeContextProvider } from './ThemeContext/ThemeContext'
+import { ThemeContextProvider } from './ThemeContextProvider/ThemeContextProvider'
 
 interface ContextProvidersProps {
 	children: ReactNode
