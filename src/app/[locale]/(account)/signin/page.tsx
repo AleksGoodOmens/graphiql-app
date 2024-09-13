@@ -1,19 +1,16 @@
 'use client'
 
-import Home from '../page'
-
-import { SyntheticEvent, useEffect, useState } from 'react'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { Form } from '@/components/Form/Form'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { formSchema, MyForm } from '@/utils'
+import { MyForm } from '@/utils/types'
 import { useRouter } from 'next/navigation'
-import { auth, registerWithEmailAndPassword } from '@/firebase/config'
+import { auth, logInWithEmailAndPassword } from '@/firebase/config'
+import { SyntheticEvent, useEffect, useState } from 'react'
 import { Snackbar } from '@mui/material'
-import { Form } from '@/components'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import Loading from '../loading'
+import Loading from '../../loading'
 
-export default function SingUp() {
+export default function SingIn() {
 	const [error, setError] = useState<string | null>(null)
 	const [open, setOpen] = useState(false)
 	const [user, loading] = useAuthState(auth)
@@ -27,23 +24,15 @@ export default function SingUp() {
 		handleSubmit,
 		register,
 		formState: { errors },
-	} = useForm<MyForm>({ mode: 'onChange', resolver: yupResolver(formSchema) })
+	} = useForm<MyForm>()
 
 	const submit: SubmitHandler<MyForm> = async (data) => {
-		const isValid = await formSchema.isValid(data)
 		const { email, password } = data
-		const name = email
 
-		if (isValid) {
-			const result = await registerWithEmailAndPassword({
-				name,
-				email,
-				password,
-			})
-			result
-				? router.push('/')
-				: (setError('Email already exists'), setOpen(true))
-		}
+		const result = await logInWithEmailAndPassword({ email, password })
+		result
+			? router.push('/')
+			: (setError('Email or password doesn`t exist'), setOpen(true))
 	}
 
 	const handleClose = (
@@ -58,11 +47,11 @@ export default function SingUp() {
 	return loading ? (
 		<Loading />
 	) : (
-		<Home>
+		<>
 			<Form
 				register={register}
-				errors={errors}
 				handleSubmit={handleSubmit(submit)}
+				errors={errors}
 			/>
 			{error && (
 				<Snackbar
@@ -73,6 +62,6 @@ export default function SingUp() {
 					message={error}
 				/>
 			)}
-		</Home>
+		</>
 	)
 }

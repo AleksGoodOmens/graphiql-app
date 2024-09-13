@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import ResponsePage from '../../../../../src/app/rest_client/[...method]/page'
+import ResponsePage from '@/app/[locale]/rest_client/[...method]/page'
 describe('ResponsePage', () => {
 	const responseParams = {
 		params: { method: ['GET', ''] },

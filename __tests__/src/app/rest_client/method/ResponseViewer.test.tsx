@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { ResponseViewer } from '../../../../../src/app/rest_client/[...method]/ResponseViewer'
+import { ResponseViewer } from '@/app/[locale]/rest_client/[...method]/ResponseViewer'
 
 describe('ResponseViewer', () => {
 	const testData = {

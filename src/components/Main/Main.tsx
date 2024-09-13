@@ -4,15 +4,16 @@ import styles from './Main.module.css'
 
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '@/firebase/config'
-import { ReactNode } from 'react'
 import { Button } from '@mui/material'
 import { AccountCircle, Login } from '@mui/icons-material'
 import { useRouter } from 'next/navigation'
-import Loading from '@/app/loading'
+import Loading from '@/app/[locale]/loading'
 import checkTokenExpiration from '@/utils/helpers/checkTokenExpiration'
 import { signOut } from 'firebase/auth'
+import { useTranslation } from 'react-i18next'
 
-export default function Main({ children }: { children: ReactNode }) {
+export default function Main() {
+	const { t } = useTranslation()
 	const [user, loading] = useAuthState(auth)
 	const router = useRouter()
 
@@ -31,29 +32,31 @@ export default function Main({ children }: { children: ReactNode }) {
 		<Loading />
 	) : (
 		<main className={styles.main}>
-			<h1>CodeADE API Explorer</h1>
+			<h1>{t('mainHeading')}</h1>
 			{user ? (
 				<div className={styles['main-wrapper']}>
-					<h2>Welcome Back, {user?.email}!</h2>
+					<h2>
+						{t('greeting')}, {user?.email}!
+					</h2>
 					<div className={styles['main-links']}>
 						<Button
 							onClick={() => router.push('/rest_client')}
 							variant='contained'
 							color='success'
 						>
-							REST Client
+							REST {t('client')}
 						</Button>
 						<Button
 							variant='contained'
 							color='success'
 						>
-							GraphiQL Client
+							GraphiQL {t('client')}
 						</Button>
 						<Button
 							variant='contained'
 							color='success'
 						>
-							History
+							{t('history')}
 						</Button>
 					</div>
 				</div>
@@ -65,7 +68,7 @@ export default function Main({ children }: { children: ReactNode }) {
 						onClick={() => router.push('/signin')}
 						color='primary'
 					>
-						Sign In
+						{t('common:buttonSignin')}
 					</Button>
 					<Button
 						variant='contained'
@@ -73,11 +76,10 @@ export default function Main({ children }: { children: ReactNode }) {
 						onClick={() => router.push('/signup')}
 						color='error'
 					>
-						Sign Up
+						{t('common:buttonSignup')}
 					</Button>
 				</div>
 			)}
-			<div>{children}</div>
 		</main>
 	)
 }

@@ -3,8 +3,10 @@ import { AddForm, RestListItem } from '@/components'
 import { restClientSelector, useAppSelector } from '@/lib'
 import { Grid } from '@mui/material'
 import { JsonEditor } from './JsonEditor'
+import { useTranslation } from 'react-i18next'
 export const RequestEditor = () => {
 	const { params, headers, baseUrl } = useAppSelector(restClientSelector)
+	const { t } = useTranslation()
 
 	return (
 		<section>
@@ -15,7 +17,7 @@ export const RequestEditor = () => {
 			>
 				<section>
 					<AddForm
-						title='Params'
+						title={t('rest:params')}
 						disabled={!baseUrl}
 					/>
 					{params.map((p) => {
@@ -29,7 +31,7 @@ export const RequestEditor = () => {
 					})}
 				</section>
 				<section>
-					<AddForm title='Headers' />
+					<AddForm title={t('rest:headers')} />
 					{headers.map((p) => {
 						return (
 							<RestListItem

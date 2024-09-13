@@ -1,0 +1,9 @@
+{
+	"body": "Body Editor:",
+	"buttonJSON": "This is JSON",
+	"buttonSEND": "send",
+	"fillForm": "Please fill the form above",
+	"headers": "Headers",
+	"params": "Params",
+	"restHeading": "Rest Client page"
+}

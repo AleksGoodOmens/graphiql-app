@@ -18,6 +18,13 @@ body {
 	height: 100vh;
 }
 
+main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 .loader {
 	position: relative;
 	animation: l24 1s infinite linear;
