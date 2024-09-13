@@ -1,1 +1,8 @@
-{"client":"Клиент","greeting":"Добро пожаловать","history":"История","mainHeading":"Обозреватель API CodeADE"}
+{
+	"client": "Клиент",
+	"greeting": "Добро пожаловать",
+	"history": "История",
+	"mainHeading": "Обозреватель API CodeADE",
+	"formHeadingSignup": "Пожалуйста, зарегистрируйтесь",
+	"formHeadingSignin": "Пожалуйста, залогиньтесь"
+}

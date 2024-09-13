@@ -4,7 +4,6 @@ import styles from './Main.module.css'
 
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '@/firebase/config'
-import { ReactNode } from 'react'
 import { Button } from '@mui/material'
 import { AccountCircle, Login } from '@mui/icons-material'
 import { useRouter } from 'next/navigation'
@@ -13,7 +12,7 @@ import checkTokenExpiration from '@/utils/helpers/checkTokenExpiration'
 import { signOut } from 'firebase/auth'
 import { useTranslation } from 'react-i18next'
 
-export default function Main({ children }: { children: ReactNode }) {
+export default function Main() {
 	const { t } = useTranslation()
 	const [user, loading] = useAuthState(auth)
 	const router = useRouter()
@@ -81,7 +80,6 @@ export default function Main({ children }: { children: ReactNode }) {
 					</Button>
 				</div>
 			)}
-			<div>{children}</div>
 		</main>
 	)
 }

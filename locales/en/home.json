@@ -1,1 +1,8 @@
-{"client":"Client","greeting":"Welcome Back","history":"History","mainHeading":"CodeADE API Explorer"}
+{
+	"client": "Client",
+	"greeting": "Welcome Back",
+	"history": "History",
+	"mainHeading": "CodeADE API Explorer",
+	"formHeadingSignup": "Please, sign up",
+	"formHeadingSignin": "Please, sign in"
+}
