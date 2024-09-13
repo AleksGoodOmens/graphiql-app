@@ -27,7 +27,7 @@ export const AddForm = ({
 			key: '',
 			value: '',
 		},
-		resolver: yupResolver(restParamsFormSchema()),
+		resolver: yupResolver(restParamsFormSchema),
 	})
 
 	const onSubmit: SubmitHandler<IKeyValue> = (data) => {

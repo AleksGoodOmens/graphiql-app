@@ -33,7 +33,7 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 			key: pair.key,
 			value: pair.value,
 		},
-		resolver: yupResolver(restParamsFormSchema()),
+		resolver: yupResolver(restParamsFormSchema),
 	})
 
 	const onSubmit: SubmitHandler<IKeyValue> = (data) => {

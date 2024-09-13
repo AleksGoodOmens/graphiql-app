@@ -41,7 +41,7 @@ export const RequestForm = () => {
 			HTTPMethod: 'GET',
 			RequestUrl: url,
 		},
-		resolver: yupResolver(restFormSchema()),
+		resolver: yupResolver(restFormSchema),
 	})
 
 	const dispatch = useAppDispatch()

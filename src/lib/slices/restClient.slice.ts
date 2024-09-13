@@ -1,6 +1,6 @@
-import { createUrlSearchParams } from '@/utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IKeyValue, IKeyValueID, IRestClientInitialState } from '../types'
+import { createUrlSearchParams } from '@/utils'
 
 const initialState: IRestClientInitialState = {
 	url: '',

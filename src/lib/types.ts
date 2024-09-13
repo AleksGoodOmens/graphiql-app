@@ -15,7 +15,7 @@ export interface IRestClientResponse {
 }
 
 export type objectWithKeys = {
-	[keys: string]: string | number
+	[key: string]: string | number
 }
 
 export interface IRestClientInitialState {
