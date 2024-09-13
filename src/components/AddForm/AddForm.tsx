@@ -61,6 +61,7 @@ export const AddForm = ({
 				gap={2}
 				padding={2}
 				component={'form'}
+				aria-label={`${title}_addForm`}
 				onSubmit={handleSubmit(onSubmit)}
 			>
 				<Grid>
