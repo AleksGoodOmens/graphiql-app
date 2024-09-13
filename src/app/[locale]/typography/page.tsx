@@ -8,7 +8,7 @@ import {
 	Typography,
 } from '@mui/material'
 
-export const typography = () => {
+export default function TypographyPage() {
 	return (
 		<Container>
 			<section>
@@ -151,5 +151,3 @@ export const typography = () => {
 		</Container>
 	)
 }
-
-export default typography

@@ -18,6 +18,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
 
 export interface Inputs {
 	HTTPMethod: string
@@ -25,6 +26,7 @@ export interface Inputs {
 }
 
 export const RequestForm = () => {
+	const { t } = useTranslation()
 	const router = useRouter()
 	const { url, headers, body } = useAppSelector(restClientSelector)
 
@@ -140,7 +142,7 @@ export const RequestForm = () => {
 					size='large'
 					color='info'
 				>
-					Send
+					{t('rest:buttonSEND')}
 				</Button>
 			</Grid>
 		</Grid>
