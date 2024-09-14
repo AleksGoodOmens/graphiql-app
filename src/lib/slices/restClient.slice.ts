@@ -75,7 +75,6 @@ const restClientSlice = createSlice({
 
 			state.params = updatedParams
 			const paramsString = createUrlSearchParams(updatedParams)
-			console.log(paramsString)
 			state.url = state.baseUrl + (paramsString ? `?${paramsString}` : '')
 		},
 

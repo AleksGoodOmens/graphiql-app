@@ -11,7 +11,5 @@ export const headersArrayToHeadersObj = (params: IKeyValueID[]) => {
 		return `${key}=${encodeURIComponent(value)}`
 	})
 
-	console.log(headersObj)
-
 	return headersObj
 }

@@ -5,6 +5,11 @@ import { render, screen } from '@testing-library/react'
 jest.mock('next/navigation', () => ({
 	useRouter: jest.fn(),
 }))
+jest.mock('react-i18next', () => ({
+	useTranslation: jest.fn(() => ({
+		t: (key: string) => key,
+	})),
+}))
 describe('RequestForm', () => {
 	it('render form', () => {
 		render(

@@ -60,6 +60,7 @@ export default function SingUp() {
 			<Form
 				register={register}
 				errors={errors}
+				aria-label='singUp'
 				handleSubmit={handleSubmit(submit)}
 			/>
 			{error && (

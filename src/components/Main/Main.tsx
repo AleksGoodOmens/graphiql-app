@@ -11,22 +11,25 @@ import Loading from '@/app/[locale]/loading'
 import checkTokenExpiration from '@/utils/helpers/checkTokenExpiration'
 import { signOut } from 'firebase/auth'
 import { useTranslation } from 'react-i18next'
+import { useEffect } from 'react'
 
 export default function Main() {
 	const { t } = useTranslation()
 	const [user, loading] = useAuthState(auth)
 	const router = useRouter()
 
-	if (user) {
-		user.getIdTokenResult().then((idTokenResult) => {
-			const expirationDate = idTokenResult.expirationTime
-			const expired = checkTokenExpiration(expirationDate)
-			if (expired) {
-				signOut(auth)
-				router.push('/')
-			}
-		})
-	}
+	useEffect(() => {
+		if (user) {
+			user.getIdTokenResult().then((idTokenResult) => {
+				const expirationDate = idTokenResult.expirationTime
+				const expired = checkTokenExpiration(expirationDate)
+				if (expired) {
+					signOut(auth)
+					router.push('/')
+				}
+			})
+		}
+	}, [router, user])
 
 	return loading ? (
 		<Loading />

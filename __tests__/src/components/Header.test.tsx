@@ -1,12 +1,25 @@
 import { Header } from '@/components'
 import { render, screen } from '@testing-library/react'
+import { useTranslation } from 'react-i18next'
 jest.mock('next/navigation', () => ({
 	useRouter: jest.fn(),
 	usePathname: jest.fn(),
 }))
+jest.mock('react-i18next', () => ({
+	useTranslation: jest.fn(() => ({
+		i18: {
+			language: 'test',
+		},
+		t: (key: string) => key,
+	})),
+}))
 
 describe('Header', () => {
 	it('renders header tag"', () => {
+		;(useTranslation as jest.Mock).mockReturnValue({
+			t: (k: string) => k,
+			i18n: { language: 'test' },
+		})
 		render(<Header />)
 
 		const banner = screen.getByRole('banner')
