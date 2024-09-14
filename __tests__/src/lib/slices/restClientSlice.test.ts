@@ -10,7 +10,6 @@ import restClientSlice, {
 	updateParam,
 } from '@/lib/slices/restClient.slice'
 
-// Создаем начальное состояние
 const initialState: IRestClientInitialState = {
 	url: '',
 	baseUrl: '',

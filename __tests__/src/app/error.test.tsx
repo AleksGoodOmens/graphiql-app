@@ -1,6 +1,5 @@
 import Error from '@/app/error'
 import { render, screen } from '@testing-library/react'
-// Мокаем useRouter
 jest.mock('next/navigation', () => ({
 	useRouter: jest.fn(),
 }))
@@ -22,7 +21,6 @@ describe('Error component', () => {
 			/>
 		)
 
-		// Проверяем, что текст ошибки отображается
 		expect(screen.getByText('Something went wrong!')).toBeInTheDocument()
 		expect(
 			screen.getByRole('button', { name: 'Try again' })
@@ -38,24 +36,6 @@ describe('Error component', () => {
 			/>
 		)
 
-		// 	// Проверяем, что console.error был вызван с ошибкой
 		expect(mockConsoleError).toHaveBeenCalledWith(error)
 	})
-
-	// it('should reset and navigate to home on button click', () => {
-	// 	render(
-	// 		<Error
-	// 			error={new Error('Test error')}
-	// 			reset={mockReset}
-	// 		/>
-	// 	)
-
-	// 	const button = screen.getByRole('button', { name: 'Try again' })
-
-	// 	fireEvent.click(button)
-
-	// 	// Проверяем, что функции были вызваны
-	// 	expect(mockReset).toHaveBeenCalled()
-	// 	expect(mockRouterPush).toHaveBeenCalledWith('/')
-	// })
 })

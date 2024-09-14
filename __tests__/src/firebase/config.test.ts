@@ -30,8 +30,6 @@ jest.mock('firebase/firestore', () => ({
 
 describe('Firebase config tests', () => {
 	it('should initialize Firebase app and auth', () => {
-		// Импортируйте файл с Firebase конфигурацией
-
 		expect(getAuth).toHaveBeenCalled()
 		expect(getApps).toHaveBeenCalled()
 		expect(initializeApp).toHaveBeenCalled()
@@ -94,30 +92,24 @@ describe('Firebase Auth - Error Handling', () => {
 			password: 'test123',
 		})
 
-		// Check if the error was logged
 		expect(consoleErrorSpy).toHaveBeenCalledWith(mockError)
 
 		consoleErrorSpy.mockRestore()
 	})
 
 	it('should handle error in logInWithEmailAndPassword', async () => {
-		// Mocking the error scenario
 		const mockError = new Error('Login failed')
 		;(signInWithEmailAndPassword as jest.Mock).mockRejectedValue(mockError)
 
-		// Mock console.error to track error logs
 		const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation()
 
-		// Call the function and expect it to handle the error
 		await logInWithEmailAndPassword({
 			email: 'test@example.com',
 			password: 'test123',
 		})
 
-		// Check if the error was logged
 		expect(consoleErrorSpy).toHaveBeenCalledWith(mockError)
 
-		// Restore the original console.error after the test
 		consoleErrorSpy.mockRestore()
 	})
 })

@@ -9,14 +9,12 @@ import { addDoc, collection, getFirestore } from 'firebase/firestore'
 const originalConsoleLog = console.log
 
 console.log = function (...args) {
-	// Check if the log message contains the word "heartbeats"
 	if (
 		args.some((arg) => typeof arg === 'string' && arg.includes('heartbeats'))
 	) {
-		return // Skip the log message
+		return
 	}
 
-	// Otherwise, use the original console.log
 	originalConsoleLog.apply(console, args)
 }
 

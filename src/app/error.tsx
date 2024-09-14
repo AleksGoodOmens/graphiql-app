@@ -13,7 +13,6 @@ export default function Error({
 }) {
 	const router = useRouter()
 	useEffect(() => {
-		// Log the error to an error reporting service
 		console.error(error)
 	}, [error])
 
@@ -22,14 +21,10 @@ export default function Error({
 			<h2>Something went wrong!</h2>
 			<Button
 				variant='contained'
-				onClick={
-					// Attempt to recover by trying to re-render the segment
-
-					() => {
-						reset()
-						router.push('/')
-					}
-				}
+				onClick={() => {
+					reset()
+					router.push('/')
+				}}
 			>
 				Try again
 			</Button>
