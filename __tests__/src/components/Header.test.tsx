@@ -5,7 +5,6 @@ jest.mock('next/navigation', () => ({
 	usePathname: jest.fn(),
 }))
 
-jest.mock('')
 describe('Header', () => {
 	it('renders header tag"', () => {
 		render(<Header />)
