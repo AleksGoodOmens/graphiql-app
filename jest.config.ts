@@ -18,9 +18,9 @@ const config: Config = {
 	],
 	coverageDirectory: 'coverage',
 	moduleNameMapper: {
+		'^@/(.*)$': '<rootDir>/src/$1',
 		'^@/app/(.*)$': '<rootDir>/src/app/$1',
 		'^@/components/(.*)$': '<rootDir>/src/components/$1',
-		'^@/(.*)$': '<rootDir>/src/$1',
 	},
 }
 
