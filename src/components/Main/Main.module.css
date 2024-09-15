@@ -1,0 +1,28 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+}
+
+.main-wrapper h2 {
+	margin: 20px;
+}
+
+.main-buttons {
+	display: flex;
+	gap: 20px;
+}
+
+.main-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.main-links {
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+}
