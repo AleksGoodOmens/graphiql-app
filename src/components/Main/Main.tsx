@@ -58,6 +58,7 @@ export default function Main() {
 						<Button
 							variant='contained'
 							color='success'
+							onClick={() => router.push('/history')}
 						>
 							{t('history')}
 						</Button>
