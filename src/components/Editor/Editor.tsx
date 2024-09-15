@@ -6,7 +6,7 @@ import 'ace-builds/src-noconflict/mode-json'
 import 'ace-builds/src-noconflict/theme-github'
 import 'ace-builds/src-noconflict/theme-monokai'
 import 'ace-builds/src-noconflict/ext-language_tools'
-import { ThemeContext } from '@/providers/ThemeContext/ThemeContext'
+import { ThemeContext } from '@/providers/ThemeContext'
 import { useContext } from 'react'
 
 interface IEditor {

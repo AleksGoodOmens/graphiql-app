@@ -1,6 +1,6 @@
-import { createUrlSearchParams } from '@/utils'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { IKeyValue, IKeyValueID, IRestClientInitialState } from '../types'
+import { createUrlSearchParams } from '@/utils'
 
 const initialState: IRestClientInitialState = {
 	url: '',
@@ -14,6 +14,7 @@ const initialState: IRestClientInitialState = {
 	isLoading: false,
 	isError: false,
 }
+
 const restClientSlice = createSlice({
 	name: 'restClient',
 	initialState,
@@ -30,7 +31,7 @@ const restClientSlice = createSlice({
 					})
 				)
 
-				state.baseUrl = `${url.protocol}//${url.host}${url.pathname}`
+				state.baseUrl = `${url.protocol}//${url.host}${url.pathname.length > 1 ? url.pathname : ''}`
 				state.params = params
 
 				const paramsString = createUrlSearchParams(params)
@@ -74,7 +75,6 @@ const restClientSlice = createSlice({
 
 			state.params = updatedParams
 			const paramsString = createUrlSearchParams(updatedParams)
-			console.log(paramsString)
 			state.url = state.baseUrl + (paramsString ? `?${paramsString}` : '')
 		},
 

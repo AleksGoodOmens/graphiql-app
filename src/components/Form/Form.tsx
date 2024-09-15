@@ -3,10 +3,18 @@
 import styles from './Form.module.css'
 
 import { Button, TextField } from '@mui/material'
-import { FormProps } from './Form.type'
 import { useContext } from 'react'
-import { ThemeContext } from '@/providers/ThemeContext/ThemeContext'
+import { ThemeContext } from '@/providers/ThemeContext'
 import { useTranslation } from 'react-i18next'
+
+import { MyForm } from '@/utils/types'
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
+
+export type FormProps = {
+	register: UseFormRegister<MyForm>
+	handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+	errors: FieldErrors<MyForm>
+}
 
 export function Form({ register, handleSubmit, errors }: FormProps) {
 	const { t } = useTranslation()

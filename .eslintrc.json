@@ -1,4 +1,5 @@
 {
+	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"project": "./tsconfig.json",
 		"ecmaVersion": 2020,
@@ -17,5 +18,14 @@
 	"rules": {
 		"@typescript-eslint/no-floating-promises": 0,
 		"@typescript-eslint/no-misused-promises": 0
-	}
+	},
+	"overrides": [
+		{
+			"files": ["./__tests__/**/*"],
+			"env": {
+				"jest": true
+			}
+		}
+	],
+	"ignorePatterns": "./coverage/*"
 }

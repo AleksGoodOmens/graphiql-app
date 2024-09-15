@@ -27,7 +27,7 @@ export const AddForm = ({
 			key: '',
 			value: '',
 		},
-		resolver: yupResolver(restParamsFormSchema()),
+		resolver: yupResolver(restParamsFormSchema),
 	})
 
 	const onSubmit: SubmitHandler<IKeyValue> = (data) => {
@@ -61,6 +61,7 @@ export const AddForm = ({
 				gap={2}
 				padding={2}
 				component={'form'}
+				aria-label={`${title}_addForm`}
 				onSubmit={handleSubmit(onSubmit)}
 			>
 				<Grid>

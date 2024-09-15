@@ -3,7 +3,7 @@ import { fetchData } from './actions'
 import { objectWithKeys } from '@/lib'
 import { ResponseViewer } from './ResponseViewer'
 
-interface IResponsePageParams {
+export interface IResponsePageParams {
 	params: {
 		method: string[]
 	}
@@ -13,27 +13,22 @@ export default async function ResponsePage({
 	params,
 	searchParams,
 }: IResponsePageParams) {
-	const getData = async () => {
-		'use server'
-		const method = params.method[0]
-		const decodedUrl = atob(decodeURIComponent(params.method[1]))
+	const method = params.method[0]
+	const decodedUrl = atob(decodeURIComponent(params.method[1]))
 
-		const fetchOptions = {
-			HTTPMethod: method,
-			RequestUrl: decodedUrl,
-			headers: searchParams,
-			body: '',
-		}
-
-		if (params.method[2]) {
-			const decodedBody = decodeURIComponent(atob(params.method[2]))
-			fetchOptions['body'] = decodedBody
-		}
-
-		return await fetchData(fetchOptions)
+	const fetchOptions = {
+		HTTPMethod: method,
+		RequestUrl: decodedUrl,
+		headers: searchParams,
+		body: '',
 	}
 
-	const { body, code, statusCode } = await getData()
+	if (params.method[2]) {
+		const decodedBody = decodeURIComponent(atob(params.method[2]))
+		fetchOptions['body'] = decodedBody
+	}
+
+	const { body, code, statusCode } = await fetchData(fetchOptions)
 
 	return (
 		<section>

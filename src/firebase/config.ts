@@ -6,6 +6,18 @@ import {
 } from 'firebase/auth'
 import { addDoc, collection, getFirestore } from 'firebase/firestore'
 
+const originalConsoleLog = console.log
+
+console.log = function (...args) {
+	if (
+		args.some((arg) => typeof arg === 'string' && arg.includes('heartbeats'))
+	) {
+		return
+	}
+
+	originalConsoleLog.apply(console, args)
+}
+
 const firebaseConfig = {
 	apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY as string,
 	authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN as string,

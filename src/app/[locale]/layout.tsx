@@ -26,6 +26,7 @@ export default async function RootLayout({
 }: RootLayoutProps) {
 	const { locale } = params
 	const { resources } = await initTranslations(locale, i18nNamespaces)
+
 	return (
 		<TranslationsProvider
 			namespaces={i18nNamespaces}
@@ -33,7 +34,7 @@ export default async function RootLayout({
 			resources={resources}
 		>
 			<ContextProviders>
-				<html lang='en'>
+				<html lang={locale}>
 					<body>
 						<Header />
 						{children}

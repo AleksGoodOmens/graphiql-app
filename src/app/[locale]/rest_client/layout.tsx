@@ -21,18 +21,17 @@ export default function RestLayout({
 	const router = useRouter()
 	const { t } = useTranslation()
 
-	if (user) {
-		user.getIdTokenResult().then((idTokenResult) => {
-			const expirationDate = idTokenResult.expirationTime
-			const expired = checkTokenExpiration(expirationDate)
-			if (expired) {
-				signOut(auth)
-				router.push('/')
-			}
-		})
-	}
-
 	useEffect(() => {
+		if (user) {
+			user.getIdTokenResult().then((idTokenResult) => {
+				const expirationDate = idTokenResult.expirationTime
+				const expired = checkTokenExpiration(expirationDate)
+				if (expired) {
+					signOut(auth)
+					router.push('/')
+				}
+			})
+		}
 		if (!user) router.replace('/signup')
 	}, [user, router])
 

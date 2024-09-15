@@ -9,5 +9,5 @@ export default function Home() {
 	useEffect(() => {
 		setIsClient(true)
 	}, [])
-	return isClient && <Main></Main>
+	return isClient && <Main />
 }
