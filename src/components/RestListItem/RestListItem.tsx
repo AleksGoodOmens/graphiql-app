@@ -104,7 +104,7 @@ export const RestListItem = ({ pair, instance }: IFormListItemParams) => {
 				variant='contained'
 				color='warning'
 				aria-label='del key/value'
-				onClick={() => dispatch(onDell)}
+				onClick={onDell}
 			>
 				<DeleteOutlineOutlined />
 			</Button>
